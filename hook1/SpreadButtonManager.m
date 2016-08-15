@@ -31,6 +31,8 @@
 }
 
 
+
+
 - (void)configureUI
 {
     __weak typeof(self) weakSelf = self;
@@ -60,6 +62,8 @@
 {
     return self.fingerVC.isLocking;
 }
+
+
 - (void)show
 {
     if (!self.isShowing) {

@@ -18,8 +18,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    //开启悬浮按钮
-    [[SpreadButtonManager sharedInstance] show];
 }
 
 - (void)didReceiveMemoryWarning {

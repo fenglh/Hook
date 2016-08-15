@@ -5,17 +5,11 @@
 #import "SpreadButtonManager.h"
 
 
-
 static void motionBegan(id self, SEL _cmd,UIEventSubtype motion, UIEvent *event)
 {
     //检测到摇动开始
-    NSLog(@"摇一摇了");
     if (motion == UIEventSubtypeMotionShake) {
-        if ([SpreadButtonManager sharedInstance].isShowing) {
-            [[SpreadButtonManager sharedInstance] hide];
-        }else{
-            [[SpreadButtonManager sharedInstance] show];
-        }
+        NSLog(@"摇一摇了");
     }
 }
 
@@ -24,19 +18,29 @@ CHDeclareClass(ManualAuthAesReqData);
 CHDeclareClass(NewMainFrameViewController);
 CHDeclareClass(CMessageMgr);
 
+//本工程测试ViewController
+CHDeclareClass(ViewController);
+
+//****************************微信hook函数*************************************//
+
 //聊天内容防撤回
 CHMethod(1,void, CMessageMgr,onRevokeMsg,id,arg1)
 {
-    NSLog(@"撤回被拦截...");
+    NSLog(@"hook [CMessageMgr:-onRevokeMsg]");
     return;
 }
 
+//bundleid
 CHMethod(0,NSString *,ManualAuthAesReqData,bundleId)
 {
+    NSLog(@"hook [ManualAuthAesReqData:-bundleId]");
     return @"com.tencent.xin";
 }
 
-
+CHMethod(0,void,NewMainFrameViewController,viewDidLoad)
+{
+    NSLog(@"hook [NewMainFrameViewController:-viewDidLoad]");
+}
 
 //参数个数、返回值类型、类名、selector名称、selector的类型、selector对应的参数的变量名
 CHMethod(2, void, NewMainFrameViewController, tableView, id, tableView, didSelectRowAtIndexPath ,id ,indexPath)
@@ -63,20 +67,24 @@ CHMethod(2, void, NewMainFrameViewController, tableView, id, tableView, didSelec
     
 }
 
-/*
- *添加摇一摇功能
- *微信聊天界面所在viewController ：NewMainFrameViewController
- */
+//****************************微信hook函数*************************************//
 
-CHMethod(0,void,NewMainFrameViewController,viewDidLoad)
+
+//****************************demo测试 hook函数*************************************//
+
+CHMethod(0,void,ViewController,viewDidLoad)
 {
-    CHSuper(0, NewMainFrameViewController,viewDidLoad);
-    //开启悬浮按钮
-    [[SpreadButtonManager sharedInstance] show];
+    CHSuper(0, ViewController,viewDidLoad);
     
-
+    NSLog(@"hook [ViewController:-viewDidLoad]");
+    //开启摇一摇功能
+    [[UIApplication sharedApplication] setApplicationSupportsShakeToEdit:YES];
+    //为类添加方法
+    class_addMethod(objc_getClass("ViewController"), @selector(motionBegan:withEvent:), (IMP)motionBegan, "V@:");
+    
 }
 
+//****************************demo测试 hook函数*************************************//
 
 __attribute__((constructor)) static void entry()
 {
@@ -89,8 +97,13 @@ __attribute__((constructor)) static void entry()
     
     
     CHLoadLateClass(NewMainFrameViewController);
-    CHClassHook(2, NewMainFrameViewController,tableView,didSelectRowAtIndexPath);
     CHClassHook(0, NewMainFrameViewController,viewDidLoad);
+    CHClassHook(2, NewMainFrameViewController,tableView,didSelectRowAtIndexPath);
+    
+    
+    ///***********DEMO测试*************//
+    CHLoadLateClass(ViewController);
+    CHClassHook(0,ViewController,viewDidLoad);
     
     
 }

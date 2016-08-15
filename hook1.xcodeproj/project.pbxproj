@@ -41,6 +41,7 @@
 		DB909E3D1D5DC3FD00BBD63E /* ZYSpreadSubButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DB909E381D5DC3FD00BBD63E /* ZYSpreadSubButton.m */; };
 		DB909E3E1D5DC41400BBD63E /* ZYSpreadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DB909E361D5DC3FD00BBD63E /* ZYSpreadButton.m */; };
 		DB909E3F1D5DC41400BBD63E /* ZYSpreadSubButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DB909E381D5DC3FD00BBD63E /* ZYSpreadSubButton.m */; };
+		DB909E401D619C6300BBD63E /* hook1.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D07C8AE1C54A9BC00084141 /* hook1.mm */; };
 		DBC6A5221D06779E00A7E089 /* CaptainHook.h in Headers */ = {isa = PBXBuildFile; fileRef = DBC6A5211D06779E00A7E089 /* CaptainHook.h */; };
 		DBC9EABB1D0EA72B005020C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC9EABA1D0EA72B005020C3 /* UIKit.framework */; };
 /* End PBXBuildFile section */
@@ -231,8 +232,6 @@
 				DB28F6921D4883640095E891 /* kefu@2x.png */,
 				DB28F6931D4883640095E891 /* muyu@2x.png */,
 				DB28F6941D4883640095E891 /* pen@2x.png */,
-				DB28F67A1D4852810095E891 /* SpreadButtonManager.h */,
-				DB28F67B1D4852810095E891 /* SpreadButtonManager.m */,
 				DB28F6731D4851E40095E891 /* icon_fingerprint@2x.png */,
 				DB28F6741D4851E40095E891 /* icon_fingerprint@3x.png */,
 				DB28F6751D4851E40095E891 /* BMFingerprintBindViewController.h */,
@@ -267,6 +266,8 @@
 		DB909E331D5DC3E300BBD63E /* 悬浮按钮 */ = {
 			isa = PBXGroup;
 			children = (
+				DB28F67A1D4852810095E891 /* SpreadButtonManager.h */,
+				DB28F67B1D4852810095E891 /* SpreadButtonManager.m */,
 				DB909E341D5DC3FD00BBD63E /* SpreadButton-Bridging-Header.h */,
 				DB909E351D5DC3FD00BBD63E /* ZYSpreadButton.h */,
 				DB909E361D5DC3FD00BBD63E /* ZYSpreadButton.m */,
@@ -468,6 +469,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB909E401D619C6300BBD63E /* hook1.mm in Sources */,
 				DB909E3E1D5DC41400BBD63E /* ZYSpreadButton.m in Sources */,
 				DB909E3F1D5DC41400BBD63E /* ZYSpreadSubButton.m in Sources */,
 				DB909E2C1D5DC35D00BBD63E /* SpreadButtonManager.m in Sources */,
@@ -613,7 +615,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Li Chao (BTTHBUB23E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Li Chao (BTTHBUB23E)";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -624,11 +627,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = Hook/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = cn.com.bluemoon.bluehouse.Hook;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.com.bluemoon.sfa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -651,7 +654,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Li Chao (BTTHBUB23E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Li Chao (BTTHBUB23E)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -663,10 +667,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = Hook/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = cn.com.bluemoon.bluehouse.Hook;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.com.bluemoon.sfa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
