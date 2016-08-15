@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7D07C8A51C54A9BC00084141 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D07C8A41C54A9BC00084141 /* Foundation.framework */; };
 		7D07C8AF1C54A9BC00084141 /* hook1.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D07C8AE1C54A9BC00084141 /* hook1.mm */; };
+		7FBA499582D3920B0B5534E3 /* libPods-Hook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD42268F02ECE5A7F81990E /* libPods-Hook.a */; };
 		DB28F6771D4851E40095E891 /* BMFingerprintBindViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = DB28F6751D4851E40095E891 /* BMFingerprintBindViewController.h */; };
 		DB28F6781D4851E40095E891 /* BMFingerprintBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB28F6761D4851E40095E891 /* BMFingerprintBindViewController.m */; };
 		DB28F67C1D4852810095E891 /* SpreadButtonManager.h in Headers */ = {isa = PBXBuildFile; fileRef = DB28F67A1D4852810095E891 /* SpreadButtonManager.h */; };
@@ -45,6 +46,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		294E164DEBA3E1B810D61837 /* Pods-Hook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hook.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hook/Pods-Hook.release.xcconfig"; sourceTree = "<group>"; };
+		6CD42268F02ECE5A7F81990E /* libPods-Hook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hook.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D07C8A11C54A9BC00084141 /* hook1.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = hook1.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D07C8A41C54A9BC00084141 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D07C8A91C54A9BC00084141 /* control.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = control.txt; path = Package/DEBIAN/control.txt; sourceTree = "<group>"; };
@@ -53,6 +56,7 @@
 		7D07C8AD1C54A9BC00084141 /* hook1-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hook1-Prefix.pch"; sourceTree = "<group>"; };
 		7D07C8AE1C54A9BC00084141 /* hook1.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = hook1.mm; sourceTree = "<group>"; };
 		7D07C8B31C54A9BC00084141 /* hook1.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = hook1.plist; path = Package/Library/MobileSubstrate/DynamicLibraries/hook1.plist; sourceTree = "<group>"; };
+		DA1E08F29C8D04BFF1FBD708 /* Pods-Hook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hook/Pods-Hook.debug.xcconfig"; sourceTree = "<group>"; };
 		DB28F6731D4851E40095E891 /* icon_fingerprint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fingerprint@2x.png"; sourceTree = "<group>"; };
 		DB28F6741D4851E40095E891 /* icon_fingerprint@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fingerprint@3x.png"; sourceTree = "<group>"; };
 		DB28F6751D4851E40095E891 /* BMFingerprintBindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFingerprintBindViewController.h; sourceTree = "<group>"; };
@@ -104,12 +108,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FBA499582D3920B0B5534E3 /* libPods-Hook.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A35365D520F1985CE73248E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DA1E08F29C8D04BFF1FBD708 /* Pods-Hook.debug.xcconfig */,
+				294E164DEBA3E1B810D61837 /* Pods-Hook.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		7D07C8971C54A9BC00084141 = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +131,7 @@
 				DB909E061D5DB92200BBD63E /* Hook */,
 				7D07C8A31C54A9BC00084141 /* Frameworks */,
 				7D07C8A21C54A9BC00084141 /* Products */,
+				6A35365D520F1985CE73248E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +152,7 @@
 				DBC9EABA1D0EA72B005020C3 /* UIKit.framework */,
 				DB3F4E481D0C19830012F764 /* LocalAuthentication.framework */,
 				7D07C8A41C54A9BC00084141 /* Foundation.framework */,
+				6CD42268F02ECE5A7F81990E /* libPods-Hook.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -301,9 +317,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB909E1B1D5DB92200BBD63E /* Build configuration list for PBXNativeTarget "Hook" */;
 			buildPhases = (
+				B1810974261541A278F995D6 /* [CP] Check Pods Manifest.lock */,
 				DB909E011D5DB92200BBD63E /* Sources */,
 				DB909E021D5DB92200BBD63E /* Frameworks */,
 				DB909E031D5DB92200BBD63E /* Resources */,
+				EEAB9B4596C705D433AD59EE /* [CP] Embed Pods Frameworks */,
+				9E9D2C9FC5C6CE1DA4DFABD2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -384,6 +403,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#/opt/iOSOpenDev/bin/iosod --xcbp";
+		};
+		9E9D2C9FC5C6CE1DA4DFABD2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hook/Pods-Hook-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B1810974261541A278F995D6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EEAB9B4596C705D433AD59EE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hook/Pods-Hook-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -533,6 +597,7 @@
 		};
 		DB909E191D5DB92200BBD63E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA1E08F29C8D04BFF1FBD708 /* Pods-Hook.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -570,6 +635,7 @@
 		};
 		DB909E1A1D5DB92200BBD63E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 294E164DEBA3E1B810D61837 /* Pods-Hook.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
