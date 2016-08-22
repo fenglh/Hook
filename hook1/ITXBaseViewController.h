@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <pop/POP.h>
 
 @interface ITXBaseViewController : UIViewController
 

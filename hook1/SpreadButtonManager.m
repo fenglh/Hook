@@ -7,14 +7,25 @@
 //
 
 #import "SpreadButtonManager.h"
-#import "ZYSpreadButton.h"
-#import "ZYSpreadSubButton.h"
 #import "BMFingerprintBindViewController.h"
+#import "UIColor+CustomColors.h"
+#import "FlatButton.h"
+#import "AnimationsListViewController.h"
+#import "HUTransitionAnimator.h"
+#import <pop/POP.h>
+#import <AudioToolbox/AudioToolbox.h>
 
-@interface SpreadButtonManager ()
-@property (nonatomic, strong)ZYSpreadButton *spreadButton;
+#define TopView [self topViewController].view
+
+@interface SpreadButtonManager ()<UINavigationControllerDelegate>
+@property (nonatomic, strong) FlatButton *circleButton;
 @property (nonatomic,readwrite, assign) BOOL isShowing;
 @property (nonatomic,readwrite, assign) BOOL isWXLocking;
+@property (nonatomic,readwrite, assign) BOOL avoidRevoke;//放撤销
+@property (nonatomic,readwrite, assign) BOOL oneKeyRecord;//一键录音
+@property (nonatomic,readwrite, assign) RedEnvPluginType redEnvPluginType;//抢红包类型
+
+@property (nonatomic,assign) CGPoint orignPosition;
 @property (nonatomic, strong) BMFingerprintBindViewController *fingerVC;
 @end
 @implementation SpreadButtonManager
@@ -31,57 +42,150 @@
 }
 
 
+#pragma mark -公有方法
+
+//一键录音
+- (BOOL)oneKeyRecord
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"OneKeyRecord"] boolValue];
+}
+
+- (void)openOneKeyRecord:(BOOL)open
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@(open) forKey:@"OneKeyRecord"];
+}
+//抢红包
+- (RedEnvPluginType)redEnvPluginType
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"RedEnvPluginType"] integerValue];
+}
+- (void)openRedEnvPlugin:(RedEnvPluginType)type
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@(type) forKey:@"RedEnvPluginType"];
+}
+//防撤销
+- (BOOL)avoidRevoke
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"AvoidRevoke"] boolValue];
+}
+- (void)openAvoidRevoke:(BOOL)open
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@(open) forKey:@"AvoidRevoke"];
+}
+
+- (void)shake
+{
+    NSLog(@"摇一摇");
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    if (self.isShowing) {
+        self.isShowing = NO;
+        [self performFlyOutAnimation];
+    }else{
+        self.isShowing = YES;
+        [self performFlyInAnimation];
+    }
+}
+
+#pragma mark - 私有方法
 
 
 - (void)configureUI
 {
-    __weak typeof(self) weakSelf = self;
+    [self addCircleButton];
+}
 
-    ZYSpreadSubButton *subButton5 = [[ZYSpreadSubButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"clock.png"] highlightImage:nil clickedBlock:^(int index, UIButton *sender) {
-        NSLog(@"第%d个按钮被被点击！",index);
-        
-         weakSelf.fingerVC = [[BMFingerprintBindViewController alloc] init];
-        UIViewController *topViewController = [weakSelf topViewController];
-        if ([topViewController isKindOfClass:[UINavigationController class]]) {
-            [(UINavigationController *)topViewController pushViewController:weakSelf.fingerVC animated:YES];
-        }else{
-            [topViewController presentViewController:weakSelf.fingerVC animated:YES completion:nil];
-        }
-    }];
+- (void)addCircleButton
+{
+    self.circleButton = [FlatButton button];
+    self.circleButton.backgroundColor = [UIColor customBlueColor];
+    self.circleButton.frame = CGRectMake(20, -40, 40, 40);
+    self.circleButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.circleButton.layer setMasksToBounds:YES];
+    [self.circleButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.spreadButton = [[ZYSpreadButton alloc] initWithBackgroundImage:[UIImage imageNamed:@"add"] highlightImage:[UIImage imageNamed:@"add"] position:CGPointMake(40,[[UIScreen mainScreen] bounds].size.height - 100)];
-    [self.spreadButton setSubButtons:@[subButton5]];
-    NSLog(@"初始化时候的自按钮列表:%@", self.spreadButton.subButtons);
-    self.spreadButton.mode = SpreadModeSickleSpread;
-    self.spreadButton.direction = SpreadDirectionRightUp;
-    self.spreadButton.radius = 120;
-    self.spreadButton.positionMode = SpreadPositionModeFixed;
-}
+    [self.circleButton.layer setCornerRadius:20.0f];
+//    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+//    [self.circleButton addGestureRecognizer:recognizer];
+    [[self topViewController].view addSubview:self.circleButton];
 
-- (BOOL)isWXLocking
-{
-    return self.fingerVC.isLocking;
 }
 
 
-- (void)show
+- (void)handlePan:(UIPanGestureRecognizer *)recognizer
 {
-    if (!self.isShowing) {
-        [[self topViewController].view addSubview:self.spreadButton];
-        self.isShowing = YES;
+    //手指移动，相对坐标中的偏移位置
+    CGPoint offsetPosition = [recognizer translationInView:[self topViewController].view];
+    NSLog(@"手指移动，相对坐标中的偏移位置:[%f,%f]",offsetPosition.x,offsetPosition.y);
+    recognizer.view.center = CGPointMake(recognizer.view.center.x + offsetPosition.x,
+                                         recognizer.view.center.y + offsetPosition.y);
+    //转换值到[self topViewController].view所在的坐标系统
+    [recognizer setTranslation:CGPointMake(0, 0) inView:[self topViewController].view];
+    
+    if(recognizer.state == UIGestureRecognizerStateEnded) {
+        //加速度
+        CGPoint velocity = [recognizer velocityInView:[self topViewController].view];
+        NSLog(@"velocity:[%f,%f]",velocity.x,velocity.y);
+        POPDecayAnimation *positionAnimation = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPosition];
+        positionAnimation.delegate = self;
+        positionAnimation.velocity = [NSValue valueWithCGPoint:velocity];
+        [recognizer.view.layer pop_addAnimation:positionAnimation forKey:@"layerPositionAnimation"];
     }
-
+}
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC{
+    HUTransitionAnimator *animator;
+    animator = [[HUTransitionVerticalLinesAnimator alloc] init];
+    animator.presenting = (operation == UINavigationControllerOperationPop)?NO:YES;
+    return animator;
 }
 
-- (void)hide
+- (void)buttonClick:(FlatButton *)button
 {
-    if (self.isShowing) {
-        [self.spreadButton removeFromSuperview];
-        self.isShowing = NO;
+   [self pauseAllAnimations:YES forLayer:button.layer];
+    AnimationsListViewController *animationsListViewController = [[AnimationsListViewController alloc] init];
+    UIViewController *topVC = [self topViewController];
+    topVC.navigationController.delegate = self;
+    [topVC.navigationController pushViewController:animationsListViewController animated:YES];
+}
+
+- (void)pauseAllAnimations:(BOOL)pause forLayer:(CALayer *)layer
+{
+    for (NSString *key in layer.pop_animationKeys) {
+        POPAnimation *animation = [layer pop_animationForKey:key];
+        [animation setPaused:pause];
     }
+}
+
+- (void)performFlyOutAnimation
+{
+    [self.circleButton.layer pop_removeAllAnimations];
+    POPBasicAnimation *offscreenAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    offscreenAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    offscreenAnimation.toValue = @([self topViewController].view.frame.size.height+40);
+    offscreenAnimation.beginTime = CACurrentMediaTime() + 0.75;
+    [self.circleButton.layer pop_addAnimation:offscreenAnimation forKey:@"offscreenAnimation"];
 
 }
 
+- (void)performFlyInAnimation
+{
+    [self.circleButton.layer pop_removeAllAnimations];
+    //设置弹簧动画
+    POPSpringAnimation *springAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    springAnim.beginTime = CACurrentMediaTime() + 0.75;
+    springAnim.springBounciness = 15;
+    springAnim.springSpeed = 5;
+    springAnim.fromValue = @-40;
+    springAnim.toValue = @([self topViewController].view.frame.size.height - 100);
+    
+    //设置不透明度动画
+    POPBasicAnimation *opacityAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];
+    //时间函数（加速入，减速出）
+    opacityAnim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    opacityAnim.duration = 0.25;
+    opacityAnim.toValue = @1.0;
+    [self.circleButton.layer pop_addAnimation:springAnim forKey:@"AnimationSpring"];
+    [self.circleButton.layer pop_addAnimation:opacityAnim forKey:@"AnimationOpacity"];
+}
 
 - (UIViewController *)topViewController {
     
@@ -95,5 +199,15 @@
     }
     return topViewController;
 }
+
+
+
+#pragma mark - getters and setters
+- (BOOL)isWXLocking
+{
+    return self.fingerVC.isLocking;
+}
+
+
 
 @end

@@ -1,5 +1,5 @@
 //
-//  ITXTableViewController.m
+//  AvoidRevokeViewController.m
 //  hook1
 //
 //  Created by 冯立海 on 16/8/16.
@@ -8,30 +8,65 @@
 
 #import "ITXTableViewController.h"
 
-@interface ITXTableViewController ()
 
+@interface ITXTableViewController ()<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic,strong) UITableView *tableView;
 @end
+
 
 @implementation ITXTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self addTableView];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+
+#pragma mark - Table view delegate
+
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [[SpreadButtonManager sharedInstance] openAvoidRevoke:![SpreadButtonManager sharedInstance].avoidRevoke];
+//    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//}
+
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.items count];
 }
-*/
+
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    MenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+//    if ([SpreadButtonManager sharedInstance].avoidRevoke) {
+//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//    }else{
+//        cell.accessoryType = UITableViewCellAccessoryNone;
+//    }
+//    cell.textLabel.text = self.items[indexPath.row];
+//    return cell;
+//}
+
+
+
+- (void)addTableView
+{
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.tableView];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.tableView registerClass:[MenuTableViewCell class] forCellReuseIdentifier:kCellIdentifier];
+}
+
 
 @end

@@ -8,7 +8,9 @@
 
 #import "FoldingView.h"
 #import "UIImage+Blur.h"
+#import "UIColor+CustomColors.h"
 #import <POP/POP.h>
+#import "NSString+Extension.h"
 
 typedef NS_ENUM(NSInteger, LayerSection) {
     LayerSectionTop,
@@ -26,6 +28,7 @@ typedef NS_ENUM(NSInteger, LayerSection) {
 - (CAShapeLayer *)maskForSection:(LayerSection)section withRect:(CGRect)rect;
 - (BOOL)isLocation:(CGPoint)location inView:(UIView *)view;
 
+@property(nonatomic) UILabel *label;
 @property(nonatomic) UIImage *image;
 @property(nonatomic) UIImageView *topView;
 @property(nonatomic) UIImageView *backView;
@@ -41,7 +44,8 @@ typedef NS_ENUM(NSInteger, LayerSection) {
     self = [super initWithFrame:frame];
     if (self) {
         _image = image;
-
+//        self.backgroundColor = [UIColor greenColor];
+        [self addLabel];
         [self addBottomView];
         [self addTopView];
 
@@ -51,18 +55,33 @@ typedef NS_ENUM(NSInteger, LayerSection) {
 }
 
 #pragma mark - Private Instance methods
+- (void)addLabel
+{
+    NSString *string = @"Author:fenglh/335418265@qq.com";
+    
+    self.label = [UILabel new];
+    self.label.font = [UIFont fontWithName:@"Avenir-Light" size:15];
+    self.label.text = string;
+    self.label.textColor = [UIColor customGrayColor];
+    self.label.numberOfLines = 0;
+    [self addSubview:self.label];
+    self.label.layer.opacity = 0.0;
+    CGSize size = [string sizeWithFont:self.label.font maxSize:self.frame.size];
+    self.label.frame = CGRectMake((self.frame.size.width - size.width)/2.0, self.frame.size.height/4.0, size.width, size.height);
+
+}
+
 
 - (void)addTopView
 {
     UIImage *image = [self imageForSection:LayerSectionTop withImage:self.image];
-
     self.topView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f,
                                                                  0.f,
                                                                  CGRectGetWidth(self.bounds),
                                                                  CGRectGetMidY(self.bounds))];
     self.topView.image = image;
     self.topView.layer.anchorPoint = CGPointMake(0.5, 1.0);
-    self.topView.layer.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    self.topView.layer.position = CGPointMake(CGRectGetMidX(self.frame)- self.frame.origin.x, CGRectGetMidY(self.frame) - self.frame.origin.y);
     self.topView.layer.transform = [self transform3D];
     self.topView.layer.mask = [self maskForSection:LayerSectionTop withRect:self.topView.bounds];
     self.topView.userInteractionEnabled = YES;
@@ -123,12 +142,17 @@ typedef NS_ENUM(NSInteger, LayerSection) {
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer
 {
     CGPoint location = [recognizer locationInView:self];
-
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         self.initialLocation = location.y;
     }
 
-    if ([[self.topView.layer valueForKeyPath:@"transform.rotation.x"] floatValue] < -M_PI_2) {
+    
+    
+    CGFloat rotation = [[self.topView.layer valueForKeyPath:@"transform.rotation.x"] floatValue];
+
+    if (rotation < -M_PI_2) {
+        CGFloat f = log2(fabs(rotation/2.0));
+        self.label.layer.opacity = f;
         self.backView.alpha = 1.0;
         [CATransaction begin];
         [CATransaction setValue:(id)kCFBooleanTrue
@@ -165,8 +189,10 @@ typedef NS_ENUM(NSInteger, LayerSection) {
     }
 }
 
+
 - (void)rotateToOriginWithVelocity:(CGFloat)velocity
 {
+    self.label.layer.opacity = 0.0;
     POPSpringAnimation *rotationAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerRotationX];
     if (velocity > 0) {
         rotationAnimation.velocity = @(velocity);
@@ -177,6 +203,8 @@ typedef NS_ENUM(NSInteger, LayerSection) {
     rotationAnimation.toValue = @(0);
     rotationAnimation.delegate = self;
     [self.topView.layer pop_addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+    
+    
 }
 
 - (CATransform3D)transform3D

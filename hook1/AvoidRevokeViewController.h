@@ -6,8 +6,8 @@
 //
 //
 
-#import "ITXBaseViewController.h"
+#import "ITXTableViewController.h"
 
-@interface AvoidRevokeViewController : ITXBaseViewController
+@interface AvoidRevokeViewController : ITXTableViewController
 
 @end

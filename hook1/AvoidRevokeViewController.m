@@ -7,16 +7,18 @@
 //
 
 #import "AvoidRevokeViewController.h"
+#import "MenuTableViewCell.h"
+#import "SpreadButtonManager.h"
 
-@interface AvoidRevokeViewController ()
-
+@interface AvoidRevokeViewController ()<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic,strong) UITableView *tableView;
 @end
 
 @implementation AvoidRevokeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.items = @[@"防撤销"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +26,28 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [[SpreadButtonManager sharedInstance] openAvoidRevoke:![SpreadButtonManager sharedInstance].avoidRevoke];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
-*/
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+    if ([SpreadButtonManager sharedInstance].avoidRevoke) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }else{
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    cell.textLabel.text = self.items[indexPath.row];
+    return cell;
+}
 
 @end

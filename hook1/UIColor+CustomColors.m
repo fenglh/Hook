@@ -35,6 +35,13 @@
     return [self colorWithRed:52 green:152 blue:219];
 }
 
+
++ (UIColor *)randomColor
+{
+    return [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
+}
+
+
 #pragma mark - Private class methods
 
 + (UIColor *)colorWithRed:(NSUInteger)red

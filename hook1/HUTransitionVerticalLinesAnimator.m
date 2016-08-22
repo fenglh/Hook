@@ -7,6 +7,7 @@
 //
 
 #import "HUTransitionVerticalLinesAnimator.h"
+#import "UIColor+CustomColors.h"
 
 
 
@@ -32,6 +33,7 @@
     
     //get the container view
     UIView *containerView = [transitionContext containerView];
+    containerView.backgroundColor = [UIColor customBlueColor];
     
     //lets get a snapshot of the outgoing view
     UIView *mainSnap = [fromVC.view snapshotViewAfterScreenUpdates:NO];

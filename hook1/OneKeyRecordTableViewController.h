@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ITXTableViewController.h"
 
-@interface OneKeyRecordTableViewController : UITableViewController
+@interface OneKeyRecordTableViewController : ITXTableViewController
 
 @end

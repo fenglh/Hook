@@ -7,7 +7,10 @@
 //
 
 #import "ITXBaseViewController.h"
+#import "MenuTableViewCell.h"
+#import "SpreadButtonManager.h"
 
+static NSString * const kCellIdentifier = @"cellIdentifier";
 @interface ITXTableViewController : ITXBaseViewController
-
+@property(nonatomic) NSArray *items;
 @end

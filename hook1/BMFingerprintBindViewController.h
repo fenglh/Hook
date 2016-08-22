@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ITXBaseViewController.h"
 
 typedef void(^UpdateBindState)();
 
-@interface BMFingerprintBindViewController : UIViewController
+@interface BMFingerprintBindViewController : ITXBaseViewController
 @property (nonatomic, strong) UpdateBindState updateBindStateBlock;
 @property (assign, readonly,nonatomic) BOOL isLocking;//正在锁定
 @end

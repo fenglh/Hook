@@ -7,22 +7,15 @@
 //
 
 #import "AnimationsListViewController.h"
-#import "ButtonViewController.h"
-#import "ImageViewController.h"
-#import "PaperButtonViewController.h"
-#import "CustomTransitionViewController.h"
-#import "PasswordViewController.h"
-#import "ConstraintsViewController.h"
-#import "CircleViewController.h"
-#import "DecayViewController.h"
-#import "FoldingViewController.h"
 #import "MenuTableViewCell.h"
-#import "UIColor+CustomColors.m"
-#import "PDUsageViewController.h"
-#import "HUAViewController.h"
 #import "LCZoomTransition.h"
+#import "UIColor+CustomColors.h"
+#import "BMFingerprintBindViewController.h"
+#import "AvoidRevokeViewController.h"
+#import "RedPacketTableViewController.h"
+#import "OneKeyRecordTableViewController.h"
+#import "ITXAboutViewController.h"
 
-static NSString * const kCellIdentifier = @"cellIdentifier";
 
 @interface AnimationsListViewController()
 @property (nonatomic, strong) LCZoomTransition *zoomTransition;
@@ -36,10 +29,14 @@ static NSString * const kCellIdentifier = @"cellIdentifier";
 
 @implementation AnimationsListViewController
 
+- (void)dealloc
+{
+    self.navigationController.delegate = nil;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"popping";
+    self.title = @"iOS逆向";
     // initialise the custom transition
     [self configureTableView];
     [self configureTitleView];
@@ -80,28 +77,21 @@ static NSString * const kCellIdentifier = @"cellIdentifier";
 
 - (void)configureTableView
 {
-    self.items = @[@[@"Button Animation", [ButtonViewController class]],
-                   @[@"Decay Animation", [DecayViewController class]],
-                   @[@"Circle Animation", [CircleViewController class]],
-                   @[@"Image Animation", [ImageViewController class]],
-                   @[@"Custom Transition", [CustomTransitionViewController class]],
-                   @[@"Paper Button Animation", [PaperButtonViewController class]],
-                   @[@"Folding Animation", [FoldingViewController class]],
-                   @[@"Password Indicator Animation", [PasswordViewController class]],
-                   @[@"Constraints Animation", [ConstraintsViewController class]],
-                   @[@"PDUsageViewController", [PDUsageViewController class]],
-                   @[@"HUA转场", [HUAViewController class]]
+    self.items = @[@[@"指纹锁定", [BMFingerprintBindViewController class]],
+                   @[@"防撤销", [AvoidRevokeViewController class]],
+                   @[@"自动抢红包", [RedPacketTableViewController class]],
+                   @[@"一键录音", [OneKeyRecordTableViewController class]],
+                   @[@"关于", [ITXAboutViewController class]],
                    ];
-    [self.tableView registerClass:[MenuTableViewCell class]
-           forCellReuseIdentifier:kCellIdentifier];
+    [self.tableView registerClass:[MenuTableViewCell class] forCellReuseIdentifier:kCellIdentifier];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.rowHeight = 50.f;
+    self.tableView.rowHeight = 44.f;
 }
 
 - (void)configureTitleView
 {
     UILabel *headlinelabel = [UILabel new];
-    headlinelabel.font = [UIFont fontWithName:@"Avenir-Light" size:28];
+    headlinelabel.font = [UIFont fontWithName:@"Avenir-Light" size:20];
     headlinelabel.textAlignment = NSTextAlignmentCenter;
     headlinelabel.textColor = [UIColor customGrayColor];
 
