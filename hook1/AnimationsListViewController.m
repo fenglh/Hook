@@ -15,6 +15,7 @@
 #import "RedPacketTableViewController.h"
 #import "OneKeyRecordTableViewController.h"
 #import "ITXAboutViewController.h"
+#import "FingerPrintAuthViewController.h"
 
 
 @interface AnimationsListViewController()
@@ -78,6 +79,7 @@
 - (void)configureTableView
 {
     self.items = @[@[@"指纹锁定", [BMFingerprintBindViewController class]],
+                   @[@"指纹锁定2", [FingerPrintAuthViewController class]],
                    @[@"防撤销", [AvoidRevokeViewController class]],
                    @[@"自动抢红包", [RedPacketTableViewController class]],
                    @[@"一键录音", [OneKeyRecordTableViewController class]],

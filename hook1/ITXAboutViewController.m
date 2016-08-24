@@ -34,14 +34,6 @@
     CGFloat offsetY = self.foldView.frame.origin.y + self.foldView.frame.size.height+20;
     self.labels = [self labelsWithString:content offsetY:offsetY];
     [self flyInAnimWithLabels:self.labels index:0];
-    
-//    NSString *author = @"       开发者:ZmVuZ2xoLzMzNTQxODI2NUBxcS5jb20K";
-//    offsetY = -[self.labels lastObject].frame.origin.y + [self.labels lastObject].frame.size.height;
-//    self.labelsAuthor = [self labelsWithString:author offsetY:offsetY];
-//    [self flyInAnimWithLabels:self.labelsAuthor index:0];
-    
-    
-    
 }
 
 - (void)addFoldView

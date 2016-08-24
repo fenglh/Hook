@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <pop/POP.h>
+#import "UIColor+CustomColors.h"
 
 @interface ITXBaseViewController : UIViewController
 
