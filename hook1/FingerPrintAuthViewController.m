@@ -8,7 +8,7 @@
 
 #import "FingerPrintAuthViewController.h"
 #import "CircleView.h"
-
+#import "NSString+Extension.h"
 @interface FingerPrintAuthViewController ()
 @property(nonatomic, strong)CircleView *circleViewImage;
 @property(nonatomic, strong)CircleView *circleViewLabel;
@@ -34,9 +34,9 @@
     self.circleViewLabel.transform = CGAffineTransformScale(self.circleViewLabel.transform, 0.5, 0.5);
     //按钮
     self.tapButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.tapButton setTitle:@"开启" forState:UIControlStateNormal];
+    [self.tapButton setTitle:@"已关闭" forState:UIControlStateNormal];
     [self.tapButton setFrame:CGRectMake(20, CGRectGetHeight(self.view.bounds)/2 + 160, CGRectGetWidth(self.view.bounds) - 20 *2, 44)];
-    self.tapButton.backgroundColor = [UIColor customRedColor];
+    self.tapButton.backgroundColor = [UIColor customBlueColor];
     self.tapButton.layer.cornerRadius = 22.0f;
     [self.tapButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.tapButton];
@@ -119,6 +119,37 @@
     [self.circleViewLabel pop_addAnimation:labelCircleScaleAnim forKey:@"LabelCircleScaleAnim"];
     [self.circleViewImage pop_addAnimation:imageCircleCenterAnim forKey:@"ImageCircleCenterAnim"];
     [self.circleViewLabel pop_addAnimation:labelCircleCenterAnim forKey:@"LabelCircleCenterAnim"];
+    
+    CGFloat minWidth = [self.tapButton.titleLabel.text sizeWithFont:self.tapButton.titleLabel.font maxSize:CGSizeMake(CGRectGetWidth(self.view.bounds)-20 *2, self.tapButton.frame.size.height)].width + 10;
+    
+    //缩小动画
+    POPBasicAnimation *buttonSizeSmallAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPViewSize];
+    buttonSizeSmallAnim.duration = 0.4f;
+    buttonSizeSmallAnim.toValue = [NSValue valueWithCGPoint:CGPointMake(minWidth, self.tapButton.frame.size.height)];
+    [buttonSizeSmallAnim setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
+        if (finished) {
+            if (imageIsCenter) {
+                [self.tapButton setTitle:@"已开启" forState:UIControlStateNormal];
+            }else{
+                [self.tapButton setTitle:@"已关闭" forState:UIControlStateNormal];
+            }
+            //放大动画
+            POPBasicAnimation *buttonSizeLargeAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPViewSize];
+            buttonSizeLargeAnim.duration = 0.4f;
+            buttonSizeLargeAnim.toValue = [NSValue valueWithCGPoint:CGPointMake(CGRectGetWidth(self.view.bounds) - 20 *2, self.tapButton.frame.size.height)];
+            [self.tapButton pop_addAnimation:buttonSizeLargeAnim forKey:@"ButtonSizeLargeAnim"];
+            
+            //背景颜色变化动画
+            POPBasicAnimation *buttonBackgroundColorAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPViewBackgroundColor];
+            if (imageIsCenter) {
+                buttonBackgroundColorAnim.toValue = self.circleViewLabel.lineColor;
+            }else{
+                buttonBackgroundColorAnim.toValue = self.circleViewImage.lineColor;
+            }
+            [self.tapButton pop_addAnimation:buttonBackgroundColorAnim forKey:@"ButtonBackgroundColorAnim"];
+        }
+    }];
+    [self.tapButton pop_addAnimation:buttonSizeSmallAnim forKey:@"ButtonSizeSmallAnim"];
     
 }
 

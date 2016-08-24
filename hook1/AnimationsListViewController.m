@@ -39,6 +39,7 @@
     [super viewDidLoad];
     self.title = @"iOS逆向";
     // initialise the custom transition
+//    self.tableView.backgroundColor = [UIColor customBlueColor];
     [self configureTableView];
     [self configureTitleView];
 }

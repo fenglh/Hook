@@ -136,7 +136,7 @@
 {
     POPBasicAnimation *strokeEndAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPShapeLayerStrokeEnd];
     strokeEndAnim.toValue = @(strokeEnd);
-    strokeEndAnim.duration = 2.5f;
+    strokeEndAnim.duration = 1.0f;
     strokeEndAnim.removedOnCompletion = NO;
     [strokeEndAnim setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
         if (finished) {
