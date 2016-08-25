@@ -7,7 +7,6 @@
 //
 
 #import "SpreadButtonManager.h"
-#import "BMFingerprintBindViewController.h"
 #import "UIColor+CustomColors.h"
 #import "FlatButton.h"
 #import "AnimationsListViewController.h"
@@ -24,9 +23,7 @@
 @property (nonatomic,readwrite, assign) BOOL avoidRevoke;//放撤销
 @property (nonatomic,readwrite, assign) BOOL oneKeyRecord;//一键录音
 @property (nonatomic,readwrite, assign) RedEnvPluginType redEnvPluginType;//抢红包类型
-
 @property (nonatomic,assign) CGPoint orignPosition;
-@property (nonatomic, strong) BMFingerprintBindViewController *fingerVC;
 @end
 @implementation SpreadButtonManager
 
@@ -231,11 +228,5 @@
     NSLog(@"剩余时间:%fls",timeInterval);
     return timeLeftSeconds;
 }
-- (BOOL)isWXLocking
-{
-    return self.fingerVC.isLocking;
-}
-
-
 
 @end

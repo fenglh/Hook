@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		7D07C8A51C54A9BC00084141 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D07C8A41C54A9BC00084141 /* Foundation.framework */; };
 		7D07C8AF1C54A9BC00084141 /* hook1.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D07C8AE1C54A9BC00084141 /* hook1.mm */; };
-		DB28F6771D4851E40095E891 /* BMFingerprintBindViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = DB28F6751D4851E40095E891 /* BMFingerprintBindViewController.h */; };
-		DB28F6781D4851E40095E891 /* BMFingerprintBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB28F6761D4851E40095E891 /* BMFingerprintBindViewController.m */; };
 		DB28F67C1D4852810095E891 /* SpreadButtonManager.h in Headers */ = {isa = PBXBuildFile; fileRef = DB28F67A1D4852810095E891 /* SpreadButtonManager.h */; };
 		DB28F67D1D4852810095E891 /* SpreadButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DB28F67B1D4852810095E891 /* SpreadButtonManager.m */; };
 		DB28F68C1D486D6C0095E891 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB28F68B1D486D6C0095E891 /* QuartzCore.framework */; };
@@ -35,7 +33,6 @@
 		DB909E2A1D5DBFAA00BBD63E /* icon_fingerprint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB28F6731D4851E40095E891 /* icon_fingerprint@2x.png */; };
 		DB909E2B1D5DBFAB00BBD63E /* icon_fingerprint@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB28F6741D4851E40095E891 /* icon_fingerprint@3x.png */; };
 		DB909E2C1D5DC35D00BBD63E /* SpreadButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DB28F67B1D4852810095E891 /* SpreadButtonManager.m */; };
-		DB909E2D1D5DC35D00BBD63E /* BMFingerprintBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB28F6761D4851E40095E891 /* BMFingerprintBindViewController.m */; };
 		DB909E301D5DC35D00BBD63E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DB909E0B1D5DB92200BBD63E /* AppDelegate.m */; };
 		DB909E311D5DC35D00BBD63E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB909E0E1D5DB92200BBD63E /* ViewController.m */; };
 		DB909E321D5DC35D00BBD63E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DB909E081D5DB92200BBD63E /* main.m */; };
@@ -96,6 +93,7 @@
 		DB909EBC1D66F3B100BBD63E /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = DB909EBA1D66F3B100BBD63E /* UIImage+Blur.m */; };
 		DB909EBD1D66F3DE00BBD63E /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = DB909EBA1D66F3B100BBD63E /* UIImage+Blur.m */; };
 		DB909EC31D67815900BBD63E /* eyu@2x.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = DB909EC21D67814900BBD63E /* eyu@2x.jpeg */; };
+		DBA88ADF1D6EC36900E3BD96 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3F4E481D0C19830012F764 /* LocalAuthentication.framework */; };
 		DBC6A5221D06779E00A7E089 /* CaptainHook.h in Headers */ = {isa = PBXBuildFile; fileRef = DBC6A5211D06779E00A7E089 /* CaptainHook.h */; };
 		DBC9EABB1D0EA72B005020C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC9EABA1D0EA72B005020C3 /* UIKit.framework */; };
 /* End PBXBuildFile section */
@@ -114,8 +112,6 @@
 		DA1E08F29C8D04BFF1FBD708 /* Pods-Hook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hook/Pods-Hook.debug.xcconfig"; sourceTree = "<group>"; };
 		DB28F6731D4851E40095E891 /* icon_fingerprint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fingerprint@2x.png"; sourceTree = "<group>"; };
 		DB28F6741D4851E40095E891 /* icon_fingerprint@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fingerprint@3x.png"; sourceTree = "<group>"; };
-		DB28F6751D4851E40095E891 /* BMFingerprintBindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFingerprintBindViewController.h; sourceTree = "<group>"; };
-		DB28F6761D4851E40095E891 /* BMFingerprintBindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFingerprintBindViewController.m; sourceTree = "<group>"; };
 		DB28F67A1D4852810095E891 /* SpreadButtonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreadButtonManager.h; sourceTree = "<group>"; };
 		DB28F67B1D4852810095E891 /* SpreadButtonManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreadButtonManager.m; sourceTree = "<group>"; };
 		DB28F68B1D486D6C0095E891 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -199,6 +195,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBA88ADF1D6EC36900E3BD96 /* LocalAuthentication.framework in Frameworks */,
 				DB909E841D62C79F00BBD63E /* libPods-Hook.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,7 +262,6 @@
 				DB909E461D61BDC300BBD63E /* FlatButton */,
 				DB909E411D61BD2400BBD63E /* Category */,
 				DB909E331D5DC3E300BBD63E /* 悬浮按钮 */,
-				DB28F6721D4851D60095E891 /* 指纹认证 */,
 				DBC6A5211D06779E00A7E089 /* CaptainHook.h */,
 				7D07C8AE1C54A9BC00084141 /* hook1.mm */,
 				7D07C8A71C54A9BC00084141 /* Package */,
@@ -324,15 +320,6 @@
 				7D07C8B31C54A9BC00084141 /* hook1.plist */,
 			);
 			name = DynamicLibraries;
-			sourceTree = "<group>";
-		};
-		DB28F6721D4851D60095E891 /* 指纹认证 */ = {
-			isa = PBXGroup;
-			children = (
-				DB28F6751D4851E40095E891 /* BMFingerprintBindViewController.h */,
-				DB28F6761D4851E40095E891 /* BMFingerprintBindViewController.m */,
-			);
-			name = "指纹认证";
 			sourceTree = "<group>";
 		};
 		DB3CB92D1D6C175B00E587A1 /* FingerPrintAuth */ = {
@@ -531,7 +518,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB909EAB1D6464FE00BBD63E /* NSString+Extension.h in Headers */,
-				DB28F6771D4851E40095E891 /* BMFingerprintBindViewController.h in Headers */,
 				DB909E891D62E1F500BBD63E /* ITXBaseViewController.h in Headers */,
 				DB909EA51D630A4A00BBD63E /* ITXTableViewController.h in Headers */,
 				DB909E7C1D62C5E700BBD63E /* MenuTableViewCell.h in Headers */,
@@ -721,7 +707,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB28F6781D4851E40095E891 /* BMFingerprintBindViewController.m in Sources */,
 				DB909E661D62C56200BBD63E /* LCZoomTransition.m in Sources */,
 				DB909EB71D66F2DC00BBD63E /* FoldingView.m in Sources */,
 				DB909E961D62F01500BBD63E /* RedPacketTableViewController.m in Sources */,
@@ -773,7 +758,6 @@
 				DB909E4C1D61BEBA00BBD63E /* UIColor+CustomColors.m in Sources */,
 				DB909E401D619C6300BBD63E /* hook1.mm in Sources */,
 				DB909E2C1D5DC35D00BBD63E /* SpreadButtonManager.m in Sources */,
-				DB909E2D1D5DC35D00BBD63E /* BMFingerprintBindViewController.m in Sources */,
 				DB909E301D5DC35D00BBD63E /* AppDelegate.m in Sources */,
 				DB909E311D5DC35D00BBD63E /* ViewController.m in Sources */,
 				DB909E321D5DC35D00BBD63E /* main.m in Sources */,

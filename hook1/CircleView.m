@@ -172,6 +172,8 @@
     }
     [self.circleLayer pop_addAnimation:strokeEndAnim forKey:@"StrokeEndAnim"];
 }
+
+
 - (void)animationWithStrokeEnd:(CGFloat)strokeEnd
 {
     [self animationWithStrokeEnd:strokeEnd labelCountDownAnimationStart:YES];

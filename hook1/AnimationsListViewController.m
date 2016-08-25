@@ -10,7 +10,6 @@
 #import "MenuTableViewCell.h"
 #import "LCZoomTransition.h"
 #import "UIColor+CustomColors.h"
-#import "BMFingerprintBindViewController.h"
 #import "AvoidRevokeViewController.h"
 #import "RedPacketTableViewController.h"
 #import "OneKeyRecordTableViewController.h"
@@ -79,7 +78,7 @@
 
 - (void)configureTableView
 {
-    self.items = @[@[@"指纹锁定", [BMFingerprintBindViewController class]],
+    self.items = @[
                    @[@"指纹锁定2", [FingerPrintAuthViewController class]],
                    @[@"防撤销", [AvoidRevokeViewController class]],
                    @[@"自动抢红包", [RedPacketTableViewController class]],

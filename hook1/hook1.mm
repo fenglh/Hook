@@ -47,7 +47,7 @@ CHMethod(0,void,NewMainFrameViewController,viewDidLoad)
 //参数个数、返回值类型、类名、selector名称、selector的类型、selector对应的参数的变量名
 CHMethod(2, void, NewMainFrameViewController, tableView, id, tableView, didSelectRowAtIndexPath ,id ,indexPath)
 {
-    if ([SpreadButtonManager sharedInstance].isWXLocking) {
+    if ([SpreadButtonManager sharedInstance].authTimeLeftSecond != 0) {
         LAContext *context = [[LAContext alloc] init];
         NSError *authError = nil;
         NSString *localizedReasonString = @"请输入指纹";

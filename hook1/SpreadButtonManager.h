@@ -26,7 +26,6 @@ typedef NS_ENUM(NSInteger, RedEnvPluginType)
 @interface SpreadButtonManager : NSObject
 
 @property (nonatomic,readonly, assign) BOOL isShowing;//是否显示悬浮按钮
-@property (nonatomic,readonly, assign) BOOL isWXLocking;
 @property (nonatomic,readonly, assign) BOOL avoidRevoke;//防撤销
 @property (nonatomic,readonly, assign) BOOL oneKeyRecord;//一键录音
 @property (nonatomic, readonly, assign) RedEnvPluginType redEnvPluginType;//抢红包类型

@@ -271,6 +271,11 @@
             }
     
         }else{
+            if (self.tapButton.tag == 1) {
+                [[SpreadButtonManager sharedInstance] setAuthValidTime:0];
+            }else{
+                self.slider.value = 0.1;
+            }
             [self beginAnimationWithRate:self.slider.value];
         }
     
