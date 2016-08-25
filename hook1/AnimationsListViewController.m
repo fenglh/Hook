@@ -79,8 +79,8 @@
 - (void)configureTableView
 {
     self.items = @[
-                   @[@"指纹锁定2", [FingerPrintAuthViewController class]],
                    @[@"防撤销", [AvoidRevokeViewController class]],
+                   @[@"指纹锁定", [FingerPrintAuthViewController class]],
                    @[@"自动抢红包", [RedPacketTableViewController class]],
                    @[@"一键录音", [OneKeyRecordTableViewController class]],
                    @[@"关于", [ITXAboutViewController class]],
