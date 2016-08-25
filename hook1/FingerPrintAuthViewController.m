@@ -16,6 +16,7 @@
 @property(nonatomic, strong)CircleView *circleViewLabel;
 @property(nonatomic, strong)UIButton *tapButton;
 @property(nonatomic, strong)UISlider *slider;
+@property (nonatomic) UILabel *errorLabel;
 @end
 @implementation FingerPrintAuthViewController
 - (void)viewDidLoad
@@ -51,6 +52,7 @@
     self.tapButton.layer.cornerRadius = 22.0f;
     [self.tapButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.tapButton];
+    [self addErrorLabel];
     
     //slider
     self.slider = [[UISlider alloc] init];
@@ -178,6 +180,8 @@
             if (finished) {
                 if (rate>0) {
                     [self.circleViewLabel setCircleStrokeEndWithStrokeEnd:rate circleAnimated:YES];
+                }else{
+                    [self buttonAnimationWithTitle:@"点击开启" backgroundColor:[UIColor customRedColor] tag:2];
                 }
                 [self showSliderAnimationWithRate:rate];
             }
@@ -252,18 +256,82 @@
 
 - (void)buttonTap:(UIButton *)button
 {
-    if (self.tapButton.tag == 2) {
-        [self.circleViewLabel labelAnimationWithRate:self.slider.value];
-        [self buttonAnimationWithTitle:@"已开启" backgroundColor:self.circleViewLabel.lineColor tag:1];
-        double timeLeftSeconds = self.slider.value * self.circleViewLabel.maxSecond;
-        NSLog(@"当前剩余时间%fs",timeLeftSeconds);
-        [[SpreadButtonManager sharedInstance] setAuthValidTime:timeLeftSeconds];
-    }else{
-        [self beginAnimationWithRate:self.slider.value];
-    }
+    [self hideErrorLabel:^(POPAnimation *anim, BOOL finished) {
+        if (self.tapButton.tag == 2) {
+            if (self.slider.value == 0) {
+                [self shakeButton:self.tapButton];
+                [self showErrorLabel];
+                return;
+            }else{
+                [self.circleViewLabel labelAnimationWithRate:self.slider.value];
+                [self buttonAnimationWithTitle:@"已开启" backgroundColor:self.circleViewLabel.lineColor tag:1];
+                double timeLeftSeconds = self.slider.value * self.circleViewLabel.maxSecond;
+                NSLog(@"当前剩余时间%fs",timeLeftSeconds);
+                [[SpreadButtonManager sharedInstance] setAuthValidTime:timeLeftSeconds];
+            }
     
+        }else{
+            [self beginAnimationWithRate:self.slider.value];
+        }
+    
+    }];;
+    
+    
+
     
 }
 
+- (void)addErrorLabel
+{
+    NSString *tips = @"请选择锁定时间.";
+    UIFont *font = [UIFont fontWithName:@"Avenir-Light" size:18];
+    CGSize size = [tips sizeWithFont:font maxSize:CGSizeMake(CGRectGetWidth(self.view.bounds), 44)];
+    self.errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    self.errorLabel.center = self.tapButton.center;
+    self.errorLabel.font = font;
+    self.errorLabel.textColor = [UIColor customRedColor];
+    self.errorLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    self.errorLabel.text = tips;
+    self.errorLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view insertSubview:self.errorLabel belowSubview:self.tapButton];
+    self.errorLabel.layer.opacity = 0.0;
+}
+
+- (void)showErrorLabel
+{
+    self.errorLabel.layer.opacity = 1.0;
+    POPSpringAnimation *layerScaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    layerScaleAnimation.springBounciness = 18;
+    layerScaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.f, 1.f)];
+    [self.errorLabel.layer pop_addAnimation:layerScaleAnimation forKey:@"labelScaleAnimation"];
+    
+    POPSpringAnimation *layerPositionAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    layerPositionAnimation.toValue = @(self.tapButton.center.y + CGRectGetHeight(self.tapButton.bounds));
+    layerPositionAnimation.springBounciness = 12;
+    [self.errorLabel.layer pop_addAnimation:layerPositionAnimation forKey:@"layerPositionAnimation"];
+}
+
+- (void)hideErrorLabel:(void (^)(POPAnimation *anim, BOOL finished))completionBlock
+{
+    POPBasicAnimation *layerScaleAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    layerScaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(0.5f, 0.5f)];
+    [self.errorLabel.layer pop_addAnimation:layerScaleAnimation forKey:@"layerScaleAnimation"];
+    
+    POPBasicAnimation *layerPositionAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    layerPositionAnimation.toValue = @(self.tapButton.center.y);
+    [self.errorLabel.layer pop_addAnimation:layerPositionAnimation forKey:@"layerPositionAnimation"];
+    [layerPositionAnimation setCompletionBlock:completionBlock];
+}
+
+- (void)shakeButton:(UIButton *)button
+{
+    POPSpringAnimation *positionAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionX];
+    positionAnimation.velocity = @2000;
+    positionAnimation.springBounciness = 20;
+    [positionAnimation setCompletionBlock:^(POPAnimation *animation, BOOL finished) {
+        button.userInteractionEnabled = YES;
+    }];
+    [button.layer pop_addAnimation:positionAnimation forKey:@"positionAnimation"];
+}
 
 @end
