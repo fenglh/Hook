@@ -57,10 +57,10 @@
 {
     self.backgroundColor = self.tintColor;
     self.layer.cornerRadius = 4.f;
-    [self setTitleColor:[UIColor whiteColor]
-                 forState:UIControlStateNormal];
-    self.titleLabel.font = [UIFont fontWithName:@"Avenir-Medium"
-                                             size:22];
+//    [self setTitleColor:[UIColor whiteColor]
+//                 forState:UIControlStateNormal];
+//    self.titleLabel.font = [UIFont fontWithName:@"Avenir-Medium"
+//                                             size:18];
 
     [self addTarget:self action:@selector(scaleToSmall)
    forControlEvents:UIControlEventTouchDown | UIControlEventTouchDragEnter];

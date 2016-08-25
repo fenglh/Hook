@@ -11,10 +11,11 @@
 #import "NSString+Extension.h"
 #import "SpreadButtonManager.h"
 #import "UIColor+CustomColors.h"
+#import "FlatButton.h"
 @interface FingerPrintAuthViewController ()
 @property(nonatomic, strong)CircleView *circleViewImage;
 @property(nonatomic, strong)CircleView *circleViewLabel;
-@property(nonatomic, strong)UIButton *tapButton;
+@property(nonatomic, strong)FlatButton *tapButton;
 @property(nonatomic, strong)UISlider *slider;
 @property (nonatomic) UILabel *errorLabel;
 @end
@@ -47,7 +48,7 @@
     }];
     
     //按钮
-    self.tapButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.tapButton = [FlatButton buttonWithType:UIButtonTypeCustom];
     [self.tapButton setFrame:CGRectMake(20, CGRectGetHeight(self.view.bounds)/2 + 160, CGRectGetWidth(self.view.bounds) - 20 *2, 44)];
     self.tapButton.layer.cornerRadius = 22.0f;
     [self.tapButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
@@ -231,7 +232,7 @@
 - (void)buttonAnimationWithTitle:(NSString *)title backgroundColor:(UIColor *)bgColor tag:(NSUInteger)tag
 {
     self.tapButton.tag = tag;
-    CGFloat minWidth = [self.tapButton.titleLabel.text sizeWithFont:self.tapButton.titleLabel.font maxSize:CGSizeMake(CGRectGetWidth(self.view.bounds)-20 *2, self.tapButton.frame.size.height)].width + 10;
+    CGFloat minWidth = [self.tapButton.titleLabel.text sizeWithFont:self.tapButton.titleLabel.font maxSize:CGSizeMake(CGRectGetWidth(self.view.bounds)-20 *2, self.tapButton.frame.size.height)].width + 60;
     //按钮缩小动画
     POPBasicAnimation *buttonSizeSmallAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPViewSize];
     buttonSizeSmallAnim.duration = 0.4f;
