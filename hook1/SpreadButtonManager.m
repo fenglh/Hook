@@ -203,6 +203,34 @@
 
 
 #pragma mark - getters and setters
+- (void)setAuthValidTime:(double)seconds
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:[NSDate date] forKey:@"AuthStartDate"];
+    [dict setObject:@(seconds) forKey:@"AuthValidSeconds"];
+    [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"AuthInfo"];
+}
+
+- (NSUInteger)authTimeLeftSecond
+{
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"AuthInfo"];
+    
+    NSDate *authStartDate = [dict objectForKey:@"AuthStartDate"];
+    double authValidSeconds = [[dict objectForKey:@"AuthValidSeconds"] doubleValue];
+    
+    if (authStartDate == nil) {
+        return 0;
+    }
+    
+    double timeInterval = [[NSDate date] timeIntervalSinceDate:authStartDate];
+    if (timeInterval > authValidSeconds) {
+        NSLog(@"认证时间已过期");
+        return 0;
+    }
+    double timeLeftSeconds = authValidSeconds - timeInterval;
+    NSLog(@"剩余时间:%fls",timeInterval);
+    return timeLeftSeconds;
+}
 - (BOOL)isWXLocking
 {
     return self.fingerVC.isLocking;

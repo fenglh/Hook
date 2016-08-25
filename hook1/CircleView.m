@@ -8,7 +8,7 @@
 
 #import "CircleView.h"
 #import "UIColor+CustomColors.h"
-#import <POP.h>
+
 #define FingerPrintImageWidth 60
 #define LineWidth 4.0f
 #define Radius (self.bounds.size.width/2-LineWidth)
@@ -17,7 +17,7 @@
 @property (nonatomic, strong)CAShapeLayer *circleLayer;
 @property (nonatomic, strong)UIImageView *fingerPrintimageView;
 @property(nonatomic,strong)UILabel * label;
-@property (nonatomic, assign)NSUInteger maxSecond;//时间最大值，默认1个小时
+@property (nonatomic,readwrite, assign)NSUInteger maxSecond;//时间最大值，默认1个小时
 @end
 
 @implementation CircleView
@@ -37,12 +37,16 @@
 - (void)configureLabel
 {
     self.label = [[UILabel alloc]init];
-    self.label.text = @"00:00:00";
     self.label.frame = CGRectMake(0, 0, 100, 100);
     self.label.textColor = [UIColor customGrayColor];
     self.label.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     self.label.font = [UIFont fontWithName:@"Avenir-Light" size:25];
     self.label.textAlignment = NSTextAlignmentCenter;
+    NSString *timeLeftString =  @"00:00:00";
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:timeLeftString];
+    UIFont *font = [UIFont fontWithName:self.label.font.fontName size:15];
+    [attrString addAttribute:NSFontAttributeName value:font range:NSMakeRange(timeLeftString.length-3,3 )];
+    self.label.attributedText = attrString;
     [self addSubview:self.label];
 }
 - (void)configureImage
@@ -97,12 +101,13 @@
         //writeBlock 中修改变化后的属性值
         prop.writeBlock = ^(id obj, const CGFloat values[]){
             UILabel *label = (UILabel *)obj;
-            
             CGFloat timeLeft = self.maxSecond*rate - values[0];
-            label.text = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)timeLeft/60,(int)timeLeft%60,(int)(timeLeft*100)%60];
+            NSString *timeLeftString = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)timeLeft/60,(int)timeLeft%60,(int)(timeLeft*100)%60];
+            NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:timeLeftString];
+            UIFont *font = [UIFont fontWithName:self.label.font.fontName size:15];
+            [attrString addAttribute:NSFontAttributeName value:font range:NSMakeRange(timeLeftString.length-3,3 )];
+            label.attributedText = attrString;
             self.circleLayer.strokeEnd = timeLeft/self.maxSecond;
-            NSLog(@"剩余时间%@,比例%f",label.text,timeLeft/self.maxSecond);
-
         };
         //        //决定了动画变化间隔的阈值， 值越大writeBlock的调用次数越少
         prop.threshold = 0.01;
@@ -115,7 +120,11 @@
     anBasic.toValue = @(self.maxSecond*rate);//
     anBasic.duration = self.maxSecond*rate;//持续时间
     anBasic.beginTime = CACurrentMediaTime() + 0.3f;//延迟0.3秒开始
-    
+    [anBasic setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
+        if (self.completionLabelBlock) {
+            self.completionLabelBlock(anim, finished);
+        }
+    }];
     [self.label pop_addAnimation:anBasic forKey:@"countdown"];
 }
 - (void)iamgeViewAnimation
@@ -132,30 +141,54 @@
     [self.fingerPrintimageView.layer pop_addAnimation:scaleAnim forKey:@"ScaleAnim"];
     [self.fingerPrintimageView.layer pop_addAnimation:opacityAnim forKey:@"OpacityAnim"];
 }
-- (void)animationWithStrokeEnd:(CGFloat)strokeEnd
+- (void)animationWithStrokeEnd:(CGFloat)strokeEnd labelCountDownAnimationStart:(BOOL)start
 {
+
     POPBasicAnimation *strokeEndAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPShapeLayerStrokeEnd];
     strokeEndAnim.toValue = @(strokeEnd);
     strokeEndAnim.duration = 1.0f;
     strokeEndAnim.removedOnCompletion = NO;
-    [strokeEndAnim setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
-        if (finished) {
-            if (self.cirCleType == CirCleTypeLabel) {
-                [self labelAnimationWithRate:strokeEnd];
-            }else{
-                [self iamgeViewAnimation];
+    if (start) {
+        [strokeEndAnim setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
+            if (finished) {
+                if (self.cirCleType == CirCleTypeLabel) {
+                    [self labelAnimationWithRate:strokeEnd];
+                }else{
+                    [self iamgeViewAnimation];
+                }
+                if (self.completionCircleBlock) {
+                    self.completionCircleBlock(anim,finished);
+                }
             }
-            
-        }
-    }];
+        }];
+    }else{
+        [self.label pop_removeAllAnimations];
+        CGFloat timeLeft = self.maxSecond*strokeEnd;
+        NSString *timeLeftString = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)timeLeft/60,(int)timeLeft%60,(int)(timeLeft*100)%60];
+        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:timeLeftString];
+        UIFont *font = [UIFont fontWithName:self.label.font.fontName size:15];
+        [attrString addAttribute:NSFontAttributeName value:font range:NSMakeRange(timeLeftString.length-3,3 )];
+        self.label.attributedText = attrString;
+    }
     [self.circleLayer pop_addAnimation:strokeEndAnim forKey:@"StrokeEndAnim"];
-    
+}
+- (void)animationWithStrokeEnd:(CGFloat)strokeEnd
+{
+    [self animationWithStrokeEnd:strokeEnd labelCountDownAnimationStart:YES];
 }
 
-- (void)setCircleStrokeEndWithStrokeEnd:(CGFloat)strokeEnd animated:(BOOL)animated
+- (void)setCircleStrokeEndWithStrokeEnd:(CGFloat)strokeEnd circleAnimated:(BOOL)circleAnim
 {
-    if (animated) {
-        [self animationWithStrokeEnd:strokeEnd];
+    if (circleAnim) {
+        [self setCircleStrokeEndWithStrokeEnd:strokeEnd circleAnimated:circleAnim labelAnimated:YES];
+    }else{
+        self.circleLayer.strokeEnd = strokeEnd;
+    }
+}
+- (void)setCircleStrokeEndWithStrokeEnd:(CGFloat)strokeEnd circleAnimated:(BOOL)circleAnim labelAnimated:(BOOL)labelAnim
+{
+    if (circleAnim) {
+        [self animationWithStrokeEnd:strokeEnd labelCountDownAnimationStart:labelAnim];
     }else{
         self.circleLayer.strokeEnd = strokeEnd;
     }

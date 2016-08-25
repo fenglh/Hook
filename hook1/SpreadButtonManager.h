@@ -31,10 +31,13 @@ typedef NS_ENUM(NSInteger, RedEnvPluginType)
 @property (nonatomic,readonly, assign) BOOL oneKeyRecord;//一键录音
 @property (nonatomic, readonly, assign) RedEnvPluginType redEnvPluginType;//抢红包类型
 
+@property (nonatomic,readonly,assign) NSUInteger authTimeLeftSecond;//认证剩余时间
+
 
 + (instancetype)sharedInstance;
 - (void)shake;
 - (void)openAvoidRevoke:(BOOL)open;
 - (void)openRedEnvPlugin:(RedEnvPluginType)type;
 - (void)openOneKeyRecord:(BOOL)open;
+- (void)setAuthValidTime:(double)seconds;
 @end
