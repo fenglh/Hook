@@ -1,12 +1,15 @@
 PODS:
   - pop (1.0.9)
+  - Shimmer (1.0.2)
 
 DEPENDENCIES:
   - pop
+  - Shimmer
 
 SPEC CHECKSUMS:
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
 
-PODFILE CHECKSUM: d84eb375e2ec8ea7bce5b9b0d7c5fc8ce6c85050
+PODFILE CHECKSUM: ec13379a9830472888dba7cdbdb6e094d233dd83
 
 COCOAPODS: 1.0.1

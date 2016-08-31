@@ -105,10 +105,13 @@ typedef NS_ENUM(NSInteger, LayerSection) {
 {
     UIImage *image = [self imageForSection:LayerSectionBottom withImage:self.image];
 
-    UIImageView *bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f,
-                                                                            CGRectGetMidY(self.bounds),
-                                                                            CGRectGetWidth(self.bounds),
-                                                                            CGRectGetMidY(self.bounds))];
+    UIView *shimmerView = [[UIView alloc] initWithFrame:CGRectMake(0.f,
+                                                                  CGRectGetMidY(self.bounds),
+                                                                  CGRectGetWidth(self.bounds),
+                                                                  CGRectGetMidY(self.bounds))];
+    
+    
+    UIImageView *bottomView = [[UIImageView alloc] initWithFrame:shimmerView.bounds];
     bottomView.image = image;
     bottomView.contentMode = UIViewContentModeScaleAspectFill;
     bottomView.layer.mask = [self maskForSection:LayerSectionBottom withRect:bottomView.bounds];
@@ -117,9 +120,11 @@ typedef NS_ENUM(NSInteger, LayerSection) {
     self.bottomShadowLayer.frame = bottomView.bounds;
     self.bottomShadowLayer.colors = @[(id)[UIColor blackColor].CGColor, (id)[UIColor clearColor].CGColor];
     self.bottomShadowLayer.opacity = 0;
-
     [bottomView.layer addSublayer:self.bottomShadowLayer];
-    [self addSubview:bottomView];
+    
+    [shimmerView addSubview:bottomView];
+    [self addSubview:shimmerView];
+    
 }
 
 - (void)addGestureRecognizers

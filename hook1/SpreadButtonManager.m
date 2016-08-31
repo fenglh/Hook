@@ -24,6 +24,8 @@
 @property (nonatomic,readwrite, assign) BOOL oneKeyRecord;//一键录音
 @property (nonatomic,readwrite, assign) RedEnvPluginType redEnvPluginType;//抢红包类型
 @property (nonatomic,assign) CGPoint orignPosition;
+
+
 @end
 @implementation SpreadButtonManager
 
@@ -196,8 +198,6 @@
     }
     return topViewController;
 }
-
-
 
 #pragma mark - getters and setters
 - (void)setAuthValidTime:(double)seconds

@@ -31,18 +31,15 @@
     [self addFoldView];
     //免责声明
     NSString *content = @"软件仅供技术交流，请勿用于商业及非法用途，如产生法律纠纷与本人无关!";
-    CGFloat offsetY = self.foldView.frame.origin.y + self.foldView.frame.size.height+20;
+    CGFloat offsetY = CGRectGetHeight(self.view.bounds) - 80;
     self.labels = [self labelsWithString:content offsetY:offsetY];
     [self flyInAnimWithLabels:self.labels index:0];
 }
 
 - (void)addFoldView
 {
-    CGFloat width = CGRectGetWidth(self.view.bounds) - Padding * 2;
-    CGRect frame = CGRectMake(10, 80, width, width);
-    
-    self.foldView = [[FoldingView alloc] initWithFrame:frame
-                                                 image:[UIImage imageNamed:@"eyu.jpeg"]];
+    self.foldView = [[FoldingView alloc] initWithFrame:self.view.bounds
+                                                 image:[UIImage imageNamed:@"walkpaper.png"]];
     [self.view addSubview:self.foldView];
 }
 
@@ -103,7 +100,7 @@
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont fontWithName:@"Avenir-Light" size:16];
         label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor customGrayColor];
+        label.textColor = [UIColor whiteColor];
         NSString *oneChar = [string substringWithRange:NSMakeRange(i, 1)];
         label.text = oneChar;
         //计算字符宽度

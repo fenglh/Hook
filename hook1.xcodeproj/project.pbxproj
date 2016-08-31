@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54B9624AC5510A389FB86B16 /* libPods-hook1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1CAB1BDFBE48967FD7DEDFC /* libPods-hook1.a */; };
 		7D07C8A51C54A9BC00084141 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D07C8A41C54A9BC00084141 /* Foundation.framework */; };
 		7D07C8AF1C54A9BC00084141 /* hook1.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D07C8AE1C54A9BC00084141 /* hook1.mm */; };
 		DB28F67C1D4852810095E891 /* SpreadButtonManager.h in Headers */ = {isa = PBXBuildFile; fileRef = DB28F67A1D4852810095E891 /* SpreadButtonManager.h */; };
@@ -94,13 +95,25 @@
 		DB909EBD1D66F3DE00BBD63E /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = DB909EBA1D66F3B100BBD63E /* UIImage+Blur.m */; };
 		DB909EC31D67815900BBD63E /* eyu@2x.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = DB909EC21D67814900BBD63E /* eyu@2x.jpeg */; };
 		DBA88ADF1D6EC36900E3BD96 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3F4E481D0C19830012F764 /* LocalAuthentication.framework */; };
+		DBA88AE31D6FCC6100E3BD96 /* os_qipao_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DBA88AE11D6FCC6000E3BD96 /* os_qipao_right@2x.png */; };
+		DBA88AE61D6FCCFC00E3BD96 /* os_qipao_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DBA88AE51D6FCCFC00E3BD96 /* os_qipao_left@2x.png */; };
 		DBC6A5221D06779E00A7E089 /* CaptainHook.h in Headers */ = {isa = PBXBuildFile; fileRef = DBC6A5211D06779E00A7E089 /* CaptainHook.h */; };
-		DBC9EABB1D0EA72B005020C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC9EABA1D0EA72B005020C3 /* UIKit.framework */; };
+		DBD8EC5F1D752B2400C65A84 /* walkpaper.png in Resources */ = {isa = PBXBuildFile; fileRef = DBD8EC5E1D752B2400C65A84 /* walkpaper.png */; };
+		DBD8EC661D756AC200C65A84 /* SIAlertView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DBD8EC611D756AC200C65A84 /* SIAlertView.bundle */; };
+		DBD8EC671D756AC200C65A84 /* SIAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = DBD8EC621D756AC200C65A84 /* SIAlertView.h */; };
+		DBD8EC681D756AC200C65A84 /* SIAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD8EC631D756AC200C65A84 /* SIAlertView.m */; };
+		DBD8EC691D756AC200C65A84 /* SIAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD8EC631D756AC200C65A84 /* SIAlertView.m */; };
+		DBD8EC6A1D756AC200C65A84 /* UIWindow+SIUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = DBD8EC641D756AC200C65A84 /* UIWindow+SIUtils.h */; };
+		DBD8EC6B1D756AC200C65A84 /* UIWindow+SIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD8EC651D756AC200C65A84 /* UIWindow+SIUtils.m */; };
+		DBD8EC6C1D756AC200C65A84 /* UIWindow+SIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD8EC651D756AC200C65A84 /* UIWindow+SIUtils.m */; };
+		DBD8EC6D1D7583AE00C65A84 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC9EABA1D0EA72B005020C3 /* UIKit.framework */; };
+		DBD8EC6F1D7585CD00C65A84 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = DBD8EC6E1D7585CD00C65A84 /* Podfile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		294E164DEBA3E1B810D61837 /* Pods-Hook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hook.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hook/Pods-Hook.release.xcconfig"; sourceTree = "<group>"; };
 		6CD42268F02ECE5A7F81990E /* libPods-Hook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hook.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		73E53023DFFFF2420E3A9217 /* Pods-hook1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hook1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hook1/Pods-hook1.debug.xcconfig"; sourceTree = "<group>"; };
 		7D07C8A11C54A9BC00084141 /* hook1.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = hook1.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D07C8A41C54A9BC00084141 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D07C8A91C54A9BC00084141 /* control.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = control.txt; path = Package/DEBIAN/control.txt; sourceTree = "<group>"; };
@@ -109,6 +122,8 @@
 		7D07C8AD1C54A9BC00084141 /* hook1-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hook1-Prefix.pch"; sourceTree = "<group>"; };
 		7D07C8AE1C54A9BC00084141 /* hook1.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = hook1.mm; sourceTree = "<group>"; };
 		7D07C8B31C54A9BC00084141 /* hook1.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = hook1.plist; path = Package/Library/MobileSubstrate/DynamicLibraries/hook1.plist; sourceTree = "<group>"; };
+		D1CAB1BDFBE48967FD7DEDFC /* libPods-hook1.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hook1.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D518C78B66B7D554F52E258B /* Pods-hook1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hook1.release.xcconfig"; path = "Pods/Target Support Files/Pods-hook1/Pods-hook1.release.xcconfig"; sourceTree = "<group>"; };
 		DA1E08F29C8D04BFF1FBD708 /* Pods-Hook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hook/Pods-Hook.debug.xcconfig"; sourceTree = "<group>"; };
 		DB28F6731D4851E40095E891 /* icon_fingerprint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fingerprint@2x.png"; sourceTree = "<group>"; };
 		DB28F6741D4851E40095E891 /* icon_fingerprint@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fingerprint@3x.png"; sourceTree = "<group>"; };
@@ -173,9 +188,18 @@
 		DB909EB91D66F3B100BBD63E /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
 		DB909EBA1D66F3B100BBD63E /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
 		DB909EC21D67814900BBD63E /* eyu@2x.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "eyu@2x.jpeg"; sourceTree = "<group>"; };
+		DBA88AE11D6FCC6000E3BD96 /* os_qipao_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "os_qipao_right@2x.png"; sourceTree = "<group>"; };
+		DBA88AE51D6FCCFC00E3BD96 /* os_qipao_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "os_qipao_left@2x.png"; sourceTree = "<group>"; };
 		DBC6A5211D06779E00A7E089 /* CaptainHook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptainHook.h; sourceTree = "<group>"; };
 		DBC9EABA1D0EA72B005020C3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DBD175251D07D30A009AFD6C /* entitlements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = entitlements.plist; sourceTree = "<group>"; };
+		DBD8EC5E1D752B2400C65A84 /* walkpaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = walkpaper.png; sourceTree = "<group>"; };
+		DBD8EC611D756AC200C65A84 /* SIAlertView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SIAlertView.bundle; sourceTree = "<group>"; };
+		DBD8EC621D756AC200C65A84 /* SIAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIAlertView.h; sourceTree = "<group>"; };
+		DBD8EC631D756AC200C65A84 /* SIAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIAlertView.m; sourceTree = "<group>"; };
+		DBD8EC641D756AC200C65A84 /* UIWindow+SIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+SIUtils.h"; sourceTree = "<group>"; };
+		DBD8EC651D756AC200C65A84 /* UIWindow+SIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+SIUtils.m"; sourceTree = "<group>"; };
+		DBD8EC6E1D7585CD00C65A84 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,11 +207,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBD8EC6D1D7583AE00C65A84 /* UIKit.framework in Frameworks */,
 				DB28F68E1D486DA30095E891 /* CoreGraphics.framework in Frameworks */,
 				DB28F68C1D486D6C0095E891 /* QuartzCore.framework in Frameworks */,
-				DBC9EABB1D0EA72B005020C3 /* UIKit.framework in Frameworks */,
 				DB3F4E491D0C19830012F764 /* LocalAuthentication.framework in Frameworks */,
 				7D07C8A51C54A9BC00084141 /* Foundation.framework in Frameworks */,
+				54B9624AC5510A389FB86B16 /* libPods-hook1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +233,8 @@
 			children = (
 				DA1E08F29C8D04BFF1FBD708 /* Pods-Hook.debug.xcconfig */,
 				294E164DEBA3E1B810D61837 /* Pods-Hook.release.xcconfig */,
+				73E53023DFFFF2420E3A9217 /* Pods-hook1.debug.xcconfig */,
+				D518C78B66B7D554F52E258B /* Pods-hook1.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -215,6 +242,7 @@
 		7D07C8971C54A9BC00084141 = {
 			isa = PBXGroup;
 			children = (
+				DBD8EC6E1D7585CD00C65A84 /* Podfile */,
 				7D07C8A61C54A9BC00084141 /* hook1 */,
 				DB909E061D5DB92200BBD63E /* Hook */,
 				7D07C8A31C54A9BC00084141 /* Frameworks */,
@@ -241,6 +269,7 @@
 				DB3F4E481D0C19830012F764 /* LocalAuthentication.framework */,
 				7D07C8A41C54A9BC00084141 /* Foundation.framework */,
 				6CD42268F02ECE5A7F81990E /* libPods-Hook.a */,
+				D1CAB1BDFBE48967FD7DEDFC /* libPods-hook1.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -248,6 +277,7 @@
 		7D07C8A61C54A9BC00084141 /* hook1 */ = {
 			isa = PBXGroup;
 			children = (
+				DBD8EC601D756AC200C65A84 /* SIAlertView */,
 				DB3CB92D1D6C175B00E587A1 /* FingerPrintAuth */,
 				DB909EB31D66F2BE00BBD63E /* FoldingView */,
 				DB909EAE1D66ED8F00BBD63E /* Images */,
@@ -488,6 +518,9 @@
 		DB909EAE1D66ED8F00BBD63E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DBD8EC5E1D752B2400C65A84 /* walkpaper.png */,
+				DBA88AE51D6FCCFC00E3BD96 /* os_qipao_left@2x.png */,
+				DBA88AE11D6FCC6000E3BD96 /* os_qipao_right@2x.png */,
 				DB909EC21D67814900BBD63E /* eyu@2x.jpeg */,
 				DB28F68F1D4883640095E891 /* add@2x.png */,
 				DB28F6901D4883640095E891 /* clock@2x.png */,
@@ -510,6 +543,18 @@
 			name = FoldingView;
 			sourceTree = "<group>";
 		};
+		DBD8EC601D756AC200C65A84 /* SIAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				DBD8EC611D756AC200C65A84 /* SIAlertView.bundle */,
+				DBD8EC621D756AC200C65A84 /* SIAlertView.h */,
+				DBD8EC631D756AC200C65A84 /* SIAlertView.m */,
+				DBD8EC641D756AC200C65A84 /* UIWindow+SIUtils.h */,
+				DBD8EC651D756AC200C65A84 /* UIWindow+SIUtils.m */,
+			);
+			path = SIAlertView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -519,6 +564,7 @@
 			files = (
 				DB909EAB1D6464FE00BBD63E /* NSString+Extension.h in Headers */,
 				DB909E891D62E1F500BBD63E /* ITXBaseViewController.h in Headers */,
+				DBD8EC671D756AC200C65A84 /* SIAlertView.h in Headers */,
 				DB909EA51D630A4A00BBD63E /* ITXTableViewController.h in Headers */,
 				DB909E7C1D62C5E700BBD63E /* MenuTableViewCell.h in Headers */,
 				DB909E8F1D62EBC800BBD63E /* AvoidRevokeViewController.h in Headers */,
@@ -538,6 +584,7 @@
 				DB909EB61D66F2DC00BBD63E /* FoldingView.h in Headers */,
 				DB909E491D61BDF200BBD63E /* FlatButton.h in Headers */,
 				DB909E711D62C59B00BBD63E /* HUTransitionAnimator.h in Headers */,
+				DBD8EC6A1D756AC200C65A84 /* UIWindow+SIUtils.h in Headers */,
 				DB3CB9351D6C1A3700E587A1 /* CircleView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,10 +596,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7D07C8B61C54A9BC00084141 /* Build configuration list for PBXNativeTarget "hook1" */;
 			buildPhases = (
+				CE69AC219C501E0E530E96EF /* [CP] Check Pods Manifest.lock */,
 				7D07C89C1C54A9BC00084141 /* Sources */,
 				7D07C89D1C54A9BC00084141 /* Frameworks */,
 				7D07C89E1C54A9BC00084141 /* Headers */,
 				7D07C89F1C54A9BC00084141 /* ShellScript */,
+				9B366A4248B75DAC6007EC34 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -623,11 +672,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBA88AE31D6FCC6100E3BD96 /* os_qipao_right@2x.png in Resources */,
 				DB909E221D5DBFAA00BBD63E /* add@2x.png in Resources */,
 				DB909E231D5DBFAA00BBD63E /* clock@2x.png in Resources */,
+				DBA88AE61D6FCCFC00E3BD96 /* os_qipao_left@2x.png in Resources */,
 				DB909E241D5DBFAA00BBD63E /* drink@2x.png in Resources */,
 				DB909E251D5DBFAA00BBD63E /* kefu@2x.png in Resources */,
+				DBD8EC6F1D7585CD00C65A84 /* Podfile in Resources */,
 				DB909EC31D67815900BBD63E /* eyu@2x.jpeg in Resources */,
+				DBD8EC5F1D752B2400C65A84 /* walkpaper.png in Resources */,
 				DB909E261D5DBFAA00BBD63E /* muyu@2x.png in Resources */,
 				DB909E271D5DBFAA00BBD63E /* pen@2x.png in Resources */,
 				DB909E281D5DBFAA00BBD63E /* SpreadButtonManager.h in Resources */,
@@ -636,6 +689,7 @@
 				DB909E2B1D5DBFAB00BBD63E /* icon_fingerprint@3x.png in Resources */,
 				DB909E171D5DB92200BBD63E /* LaunchScreen.storyboard in Resources */,
 				DB909E141D5DB92200BBD63E /* Assets.xcassets in Resources */,
+				DBD8EC661D756AC200C65A84 /* SIAlertView.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +709,21 @@
 			shellPath = /bin/sh;
 			shellScript = "#/opt/iOSOpenDev/bin/iosod --xcbp";
 		};
+		9B366A4248B75DAC6007EC34 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hook1/Pods-hook1-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9E9D2C9FC5C6CE1DA4DFABD2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -671,6 +740,21 @@
 			showEnvVarsInLog = 0;
 		};
 		B1810974261541A278F995D6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CE69AC219C501E0E530E96EF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -711,12 +795,14 @@
 				DB909EB71D66F2DC00BBD63E /* FoldingView.m in Sources */,
 				DB909E961D62F01500BBD63E /* RedPacketTableViewController.m in Sources */,
 				DB909EA61D630A4A00BBD63E /* ITXTableViewController.m in Sources */,
+				DBD8EC681D756AC200C65A84 /* SIAlertView.m in Sources */,
 				DB909E8A1D62E1F500BBD63E /* ITXBaseViewController.m in Sources */,
 				7D07C8AF1C54A9BC00084141 /* hook1.mm in Sources */,
 				DB909EAC1D6464FE00BBD63E /* NSString+Extension.m in Sources */,
 				DB909E451D61BD4400BBD63E /* UIColor+CustomColors.m in Sources */,
 				DB909E721D62C59B00BBD63E /* HUTransitionAnimator.m in Sources */,
 				DB909E9B1D62F2C400BBD63E /* OneKeyRecordTableViewController.m in Sources */,
+				DBD8EC6B1D756AC200C65A84 /* UIWindow+SIUtils.m in Sources */,
 				DB909E901D62EBC800BBD63E /* AvoidRevokeViewController.m in Sources */,
 				DB28F67D1D4852810095E891 /* SpreadButtonManager.m in Sources */,
 				DB909E741D62C59B00BBD63E /* HUTransitionGhostAnimator.m in Sources */,
@@ -738,6 +824,7 @@
 			files = (
 				DB3CB9371D6C1F0900E587A1 /* CircleView.m in Sources */,
 				DB3CB9321D6C180600E587A1 /* FingerPrintAuthViewController.m in Sources */,
+				DBD8EC6C1D756AC200C65A84 /* UIWindow+SIUtils.m in Sources */,
 				DB909EBD1D66F3DE00BBD63E /* UIImage+Blur.m in Sources */,
 				DB909EB81D66F31B00BBD63E /* FoldingView.m in Sources */,
 				DB909EAD1D668FE900BBD63E /* NSString+Extension.m in Sources */,
@@ -747,6 +834,7 @@
 				DB909EA11D62F40C00BBD63E /* ITXAboutViewController.m in Sources */,
 				DB909E911D62EC8D00BBD63E /* AvoidRevokeViewController.m in Sources */,
 				DB909E8B1D62E26200BBD63E /* ITXBaseViewController.m in Sources */,
+				DBD8EC691D756AC200C65A84 /* SIAlertView.m in Sources */,
 				DB909E851D62C83200BBD63E /* LCZoomTransition.m in Sources */,
 				DB909E7E1D62C5FB00BBD63E /* MenuTableViewCell.m in Sources */,
 				DB909E7F1D62C5FB00BBD63E /* HUTransitionAnimator.m in Sources */,
@@ -839,14 +927,24 @@
 		};
 		7D07C8B71C54A9BC00084141 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73E53023DFFFF2420E3A9217 /* Pods-hook1.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = hook1/Entitlements.plist;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Li Chao (BTTHBUB23E)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "hook1/hook1-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(iOSOpenDevPath)/include/**",
+				);
 				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(iOSOpenDevPath)/lib/**",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "b2b3e49f-e71c-440d-a512-fcd69c3c5463";
 				iOSOpenDevBuildPackageOnAnyBuild = NO;
@@ -861,14 +959,24 @@
 		};
 		7D07C8B81C54A9BC00084141 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D518C78B66B7D554F52E258B /* Pods-hook1.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = hook1/Entitlements.plist;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Li Chao (BTTHBUB23E)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "hook1/hook1-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(iOSOpenDevPath)/include/**",
+				);
 				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(iOSOpenDevPath)/lib/**",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "b2b3e49f-e71c-440d-a512-fcd69c3c5463";
 				iOSOpenDevBuildPackageOnAnyBuild = NO;

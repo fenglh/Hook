@@ -57,7 +57,7 @@
     self.fingerPrintimageView.layer.cornerRadius = FingerPrintImageWidth/2.0;
     self.fingerPrintimageView.frame = CGRectMake(0, 0, FingerPrintImageWidth, FingerPrintImageWidth);
     self.fingerPrintimageView.center = CGPointMake(self.bounds.size.width/2.0, self.bounds.size.height/2.0);
-    self.fingerPrintimageView.layer.opacity = 0.0f;
+    self.fingerPrintimageView.layer.opacity = 1.0f;
     [self addSubview:self.fingerPrintimageView];
     
 }
@@ -95,8 +95,9 @@
     self.circleLayer.strokeColor = lineColor.CGColor;
 }
 
-- (void)labelAnimationWithRate:(CGFloat)rate
+- (void)labelCountDownAnimationWithRate:(CGFloat)rate finishedBlock:(void(^)())finishedBlock
 {
+    [self setLabelWithRate:rate];
     POPAnimatableProperty *prop = [POPAnimatableProperty propertyWithName:@"countdown" initializer:^(POPMutableAnimatableProperty *prop) {
         //writeBlock 中修改变化后的属性值
         prop.writeBlock = ^(id obj, const CGFloat values[]){
@@ -121,79 +122,67 @@
     anBasic.duration = self.maxSecond*rate;//持续时间
     anBasic.beginTime = CACurrentMediaTime() + 0.3f;//延迟0.3秒开始
     [anBasic setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
-        if (self.completionLabelBlock) {
-            self.completionLabelBlock(anim, finished);
+        if (finished && finishedBlock) {
+            finishedBlock();
         }
     }];
     [self.label pop_addAnimation:anBasic forKey:@"countdown"];
 }
-- (void)iamgeViewAnimation
-{
-    POPSpringAnimation *scaleAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-    scaleAnim.springBounciness = 10;
-    scaleAnim.springSpeed = 20;
-    scaleAnim.fromValue = [NSValue valueWithCGPoint:CGPointMake(0, 0)];
-    scaleAnim.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
-    POPBasicAnimation *opacityAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];
-    opacityAnim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    opacityAnim.duration = 0.3;
-    opacityAnim.toValue = @1.0;
-    [self.fingerPrintimageView.layer pop_addAnimation:scaleAnim forKey:@"ScaleAnim"];
-    [self.fingerPrintimageView.layer pop_addAnimation:opacityAnim forKey:@"OpacityAnim"];
-}
-- (void)animationWithStrokeEnd:(CGFloat)strokeEnd labelCountDownAnimationStart:(BOOL)start
-{
 
-    POPBasicAnimation *strokeEndAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPShapeLayerStrokeEnd];
-    strokeEndAnim.toValue = @(strokeEnd);
-    strokeEndAnim.duration = 1.0f;
-    strokeEndAnim.removedOnCompletion = NO;
-    if (start) {
+- (void)labelCountUpAnimationWithRate:(CGFloat)rate
+{
+    POPAnimatableProperty *prop = [POPAnimatableProperty propertyWithName:@"countup" initializer:^(POPMutableAnimatableProperty *prop) {
+        //writeBlock 中修改变化后的属性值
+        prop.writeBlock = ^(id obj, const CGFloat values[]){
+            CGFloat timeSeconds = values[0];
+            [self setLabelWithSeconds:timeSeconds stopAnim:NO];
+        };
+    }];
+    POPBasicAnimation *anBasic = [POPBasicAnimation linearAnimation];//秒表当然必须是线性的时间函数
+    anBasic.property = prop;//自定义属性
+    anBasic.fromValue = @(0);//从0开始
+    anBasic.toValue = @(self.maxSecond*rate);//
+    anBasic.duration = 2.0f;//持续时间
+    anBasic.beginTime = CACurrentMediaTime() + 0.3f;//延迟0.3秒开始
+    [self.label pop_addAnimation:anBasic forKey:@"countup"];
+}
+
+- (void)animationWithStrokeend:(CGFloat)strokeEnd strokeAnim:(BOOL)anim animFinishedBlock:(void(^)(POPAnimation *anim))finishedBlock
+{
+    if (anim) {
+        POPBasicAnimation *strokeEndAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPShapeLayerStrokeEnd];
+        strokeEndAnim.toValue = @(strokeEnd);
+        strokeEndAnim.duration = 2.0f;
+        strokeEndAnim.removedOnCompletion = NO;
         [strokeEndAnim setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
-            if (finished) {
-                if (self.cirCleType == CirCleTypeLabel) {
-                    [self labelAnimationWithRate:strokeEnd];
-                }else{
-                    [self iamgeViewAnimation];
-                }
-                if (self.completionCircleBlock) {
-                    self.completionCircleBlock(anim,finished);
-                }
+            if (finished ) {
+                strokeEnd == 0?[self setLabelWithRate:0]:nil;
+                finishedBlock?finishedBlock(anim):nil;
             }
         }];
+        [self.circleLayer pop_addAnimation:strokeEndAnim forKey:@"StrokeEndAnim"];
     }else{
+        self.circleLayer.strokeEnd = strokeEnd;
+    }
+    
+}
+
+- (void)setLabelWithSeconds:(CGFloat)seconds stopAnim:(BOOL)stop
+{
+    if (stop) {
         [self.label pop_removeAllAnimations];
-        CGFloat timeLeft = self.maxSecond*strokeEnd;
-        NSString *timeLeftString = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)timeLeft/60,(int)timeLeft%60,(int)(timeLeft*100)%60];
-        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:timeLeftString];
-        UIFont *font = [UIFont fontWithName:self.label.font.fontName size:15];
-        [attrString addAttribute:NSFontAttributeName value:font range:NSMakeRange(timeLeftString.length-3,3 )];
-        self.label.attributedText = attrString;
     }
-    [self.circleLayer pop_addAnimation:strokeEndAnim forKey:@"StrokeEndAnim"];
+    
+    NSString *timeLeftString = [NSString stringWithFormat:@"%02d:%02d:%02d",(int)seconds/60,(int)seconds%60,(int)(seconds*100)%60];
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:timeLeftString];
+    UIFont *font = [UIFont fontWithName:self.label.font.fontName size:15];
+    [attrString addAttribute:NSFontAttributeName value:font range:NSMakeRange(timeLeftString.length-3,3 )];
+    self.label.attributedText = attrString;
 }
-
-
-- (void)animationWithStrokeEnd:(CGFloat)strokeEnd
+- (void)setLabelWithRate:(CGFloat)rate
 {
-    [self animationWithStrokeEnd:strokeEnd labelCountDownAnimationStart:YES];
-}
-
-- (void)setCircleStrokeEndWithStrokeEnd:(CGFloat)strokeEnd circleAnimated:(BOOL)circleAnim
-{
-    if (circleAnim) {
-        [self setCircleStrokeEndWithStrokeEnd:strokeEnd circleAnimated:circleAnim labelAnimated:YES];
-    }else{
-        self.circleLayer.strokeEnd = strokeEnd;
-    }
-}
-- (void)setCircleStrokeEndWithStrokeEnd:(CGFloat)strokeEnd circleAnimated:(BOOL)circleAnim labelAnimated:(BOOL)labelAnim
-{
-    if (circleAnim) {
-        [self animationWithStrokeEnd:strokeEnd labelCountDownAnimationStart:labelAnim];
-    }else{
-        self.circleLayer.strokeEnd = strokeEnd;
-    }
+    double timeLeft = rate * self.maxSecond;
+    [self setLabelWithSeconds:timeLeft stopAnim:YES];
 }
 
 - (void)setCirCleType:(CirCleType)cirCleType

@@ -39,4 +39,5 @@ typedef NS_ENUM(NSInteger, RedEnvPluginType)
 - (void)openRedEnvPlugin:(RedEnvPluginType)type;
 - (void)openOneKeyRecord:(BOOL)open;
 - (void)setAuthValidTime:(double)seconds;
+
 @end
