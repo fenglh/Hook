@@ -34,20 +34,11 @@
 
 #pragma mark - Instance methods
 
-- (UIEdgeInsets)titleEdgeInsets
-{
-    return UIEdgeInsetsMake(4.f,
-                            28.f,
-                            4.f,
-                            28.f);
-}
 
 - (CGSize)intrinsicContentSize
 {
-    CGSize s = [super intrinsicContentSize];
-
-    return CGSizeMake(s.width + self.titleEdgeInsets.left + self.titleEdgeInsets.right,
-                      s.height + self.titleEdgeInsets.top + self.titleEdgeInsets.bottom);
+    [super intrinsicContentSize];
+    return CGSizeMake(40,40);
     
 }
 

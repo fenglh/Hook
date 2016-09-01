@@ -3,6 +3,7 @@
 #import <UIKit/UIKit.h>
 #define BindFingerPrintOpen @"BindFingerPrintOpen"
 #import "SpreadButtonManager.h"
+#import "UIApplication+ITXExtension.h"
 
 //Build Setting--> Apple LLVM 6.0 - Preprocessing--> Enable Strict Checking of objc_msgSend Calls  改为 NO
 
@@ -19,17 +20,83 @@ static void motionBegan(id self, SEL _cmd,UIEventSubtype motion, UIEvent *event)
 CHDeclareClass(ManualAuthAesReqData);
 CHDeclareClass(NewMainFrameViewController);
 CHDeclareClass(CMessageMgr);
+CHDeclareClass(BaseMsgContentViewController);
+CHDeclareClass(MMInputToolView);
 
 //本工程测试ViewController
 CHDeclareClass(ViewController);
 
 //****************************微信hook函数*************************************//
 
+
+CHMethod(1,void,BaseMsgContentViewController,viewWillAppear,BOOL, animated)
+{
+    CHSuper(1, BaseMsgContentViewController,viewWillAppear,animated);
+    UIViewController *selfVC = [UIApplication itx_topViewController];
+    if (![selfVC isKindOfClass:objc_getClass("BaseMsgContentViewController")]) {
+        NSLog(@"逆向日志>> topViewController 不是 BaseMsgContentViewController");
+        return;
+    }
+    Ivar inputToolViewIvar = class_getInstanceVariable(objc_getClass("BaseMsgContentViewController"), "_inputToolView");
+    id toolView = object_getIvar(selfVC, inputToolViewIvar);
+    NSLog(@"逆向日志>> selfVC:%@, 变量toolView:%@",selfVC,toolView);
+    Ivar recordButtonIvar = class_getInstanceVariable(objc_getClass("MMInputToolView"),"_recordButton");
+    id  recordButton = object_getIvar(toolView, recordButtonIvar);
+    NSLog(@"逆向日志>> recordButton:%@",recordButton);
+    if ([SpreadButtonManager sharedInstance].oneKeyRecord) {
+        [(UIButton *)recordButton setTitle:@"一键 说话" forState:0];
+    }else{
+        [(UIButton *)recordButton setTitle:@"按住 说话" forState:0];
+    }
+    
+}
+
+
+CHMethod(2, void,MMInputToolView,MMTransparentButton_touchesEnded,id,arg1,withEvent,id,arg2)
+{
+    if ([SpreadButtonManager sharedInstance].oneKeyRecord) {
+        return;
+    }
+    CHSuper(2, MMInputToolView,MMTransparentButton_touchesEnded,arg1,withEvent,arg2);
+}
+CHMethod(2, void,MMInputToolView,MMTransparentButton_touchesMoved,id,arg1,withEvent,id,arg2)
+{
+    if (![SpreadButtonManager sharedInstance].oneKeyRecord) {
+        return;
+    }
+    CHSuper(2, MMInputToolView,MMTransparentButton_touchesMoved,arg1,withEvent,arg2);
+}
+CHMethod(2, void,MMInputToolView,MMTransparentButton_touchesCancelled,id,arg1,withEvent,id,arg2)
+{
+    if (![SpreadButtonManager sharedInstance].oneKeyRecord) {
+        return;
+    }
+    CHSuper(2, MMInputToolView,MMTransparentButton_touchesCancelled,arg1,withEvent,arg2);
+}
+CHMethod(2, void,MMInputToolView,MMTransparentButton_touchesBegan,id,arg1,withEvent,id,arg2)
+{
+    if (![SpreadButtonManager sharedInstance].oneKeyRecord) {
+        CHSuper(2, MMInputToolView,MMTransparentButton_touchesBegan,arg1,withEvent,arg2);
+        return;
+    }
+    UIViewController *selfVC = [UIApplication itx_topViewController];
+    Ivar inputToolViewIvar = class_getInstanceVariable(objc_getClass("BaseMsgContentViewController"), "_inputToolView");
+    id toolView = object_getIvar(selfVC, inputToolViewIvar);
+    [toolView performSelector:@selector(resalStartRecording) withObject:nil];
+    NSLog(@"调用toolView resalStartRecording方法:%@",toolView);
+}
+
+
 //聊天内容防撤回
 CHMethod(1,void, CMessageMgr,onRevokeMsg,id,arg1)
 {
-    NSLog(@"hook [CMessageMgr:-onRevokeMsg]");
-    return;
+    if ([[SpreadButtonManager sharedInstance] avoidRevoke]) {
+        NSLog(@"hook [CMessageMgr:-onRevokeMsg]");
+        return;
+    }else{
+        CHSuper(1, CMessageMgr,onRevokeMsg,arg1);
+    }
+
 }
 
 //bundleid
@@ -38,10 +105,22 @@ CHMethod(0,NSString *,ManualAuthAesReqData,bundleId)
     NSLog(@"hook [ManualAuthAesReqData:-bundleId]");
     return @"com.tencent.xin";
 }
-
+CHMethod(1,void,NewMainFrameViewController,viewWillAppear,BOOL, animated)
+{
+    CHSuper(1, NewMainFrameViewController,viewWillAppear,animated);
+    [UIApplication itx_topViewController].navigationController.delegate = nil;
+    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+    NSLog(@"重置navigationController.delegate = nil");
+    
+}
 CHMethod(0,void,NewMainFrameViewController,viewDidLoad)
 {
+    CHSuper(0, NewMainFrameViewController,viewDidLoad);
     NSLog(@"hook [NewMainFrameViewController:-viewDidLoad]");
+    //开启摇一摇功能
+    [[UIApplication sharedApplication] setApplicationSupportsShakeToEdit:YES];
+    //为类添加方法
+    class_addMethod(objc_getClass("NewMainFrameViewController"), @selector(motionBegan:withEvent:), (IMP)motionBegan, "V@:");
 }
 
 //参数个数、返回值类型、类名、selector名称、selector的类型、selector对应的参数的变量名
@@ -218,13 +297,23 @@ __attribute__((constructor)) static void entry()
     
     
     CHLoadLateClass(NewMainFrameViewController);
+    CHClassHook(1, NewMainFrameViewController,viewWillAppear);
     CHClassHook(0, NewMainFrameViewController,viewDidLoad);
     CHClassHook(2, NewMainFrameViewController,tableView,didSelectRowAtIndexPath);
     
+    //微信一键说话
+    CHLoadLateClass(BaseMsgContentViewController);
+    CHClassHook(1,BaseMsgContentViewController,viewWillAppear);
+    //
+    CHLoadLateClass(MMInputToolView);
+    CHClassHook(2,MMInputToolView,MMTransparentButton_touchesBegan,withEvent);
+    CHClassHook(2,MMInputToolView,MMTransparentButton_touchesCancelled,withEvent);
+    CHClassHook(2,MMInputToolView,MMTransparentButton_touchesEnded,withEvent);
+    CHClassHook(2,MMInputToolView,MMTransparentButton_touchesMoved,withEvent);
     
     ///***********DEMO测试*************//
-    CHLoadLateClass(ViewController);
-    CHClassHook(0,ViewController,viewDidLoad);
+//    CHLoadLateClass(ViewController);
+//    CHClassHook(0,ViewController,viewDidLoad);
     
     
 }

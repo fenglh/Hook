@@ -18,7 +18,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button setBackgroundColor:[UIColor redColor]];
+    [button setTitle:@"点击我" forState:UIControlStateNormal];
+    button.frame = CGRectMake(100, 100, 160, 44);
+    [self.view addSubview:button];
+
 }
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

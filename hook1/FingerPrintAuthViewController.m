@@ -14,6 +14,7 @@
 #import "FlatButton.h"
 #import "SIAlertView.h"
 
+
 @interface FingerPrintAuthViewController ()
 @property(nonatomic, strong)CircleView *circleViewImage;
 @property(nonatomic, strong)CircleView *circleViewLabel;

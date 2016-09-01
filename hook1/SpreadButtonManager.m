@@ -13,8 +13,10 @@
 #import "HUTransitionAnimator.h"
 #import <pop/POP.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "UIApplication+ITXExtension.h"
+#import <objc/runtime.h>
 
-#define TopView [self topViewController].view
+#define TopView [UIApplication itx_topViewController].view
 
 @interface SpreadButtonManager ()<UINavigationControllerDelegate>
 @property (nonatomic, strong) FlatButton *circleButton;
@@ -105,31 +107,15 @@
     [self.circleButton.layer setCornerRadius:20.0f];
 //    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
 //    [self.circleButton addGestureRecognizer:recognizer];
-    [[self topViewController].view addSubview:self.circleButton];
-
-}
-
-
-- (void)handlePan:(UIPanGestureRecognizer *)recognizer
-{
-    //手指移动，相对坐标中的偏移位置
-    CGPoint offsetPosition = [recognizer translationInView:[self topViewController].view];
-    NSLog(@"手指移动，相对坐标中的偏移位置:[%f,%f]",offsetPosition.x,offsetPosition.y);
-    recognizer.view.center = CGPointMake(recognizer.view.center.x + offsetPosition.x,
-                                         recognizer.view.center.y + offsetPosition.y);
-    //转换值到[self topViewController].view所在的坐标系统
-    [recognizer setTranslation:CGPointMake(0, 0) inView:[self topViewController].view];
     
-    if(recognizer.state == UIGestureRecognizerStateEnded) {
-        //加速度
-        CGPoint velocity = [recognizer velocityInView:[self topViewController].view];
-        NSLog(@"velocity:[%f,%f]",velocity.x,velocity.y);
-        POPDecayAnimation *positionAnimation = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPosition];
-        positionAnimation.delegate = self;
-        positionAnimation.velocity = [NSValue valueWithCGPoint:velocity];
-        [recognizer.view.layer pop_addAnimation:positionAnimation forKey:@"layerPositionAnimation"];
-    }
+    UIViewController *topViewController = [UIApplication itx_topViewController];
+    NSLog(@"初始化按钮在 :%@",[topViewController class]);
+    [topViewController.view addSubview:self.circleButton];
+
 }
+
+
+
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC{
     HUTransitionAnimator *animator;
     animator = [[HUTransitionVerticalLinesAnimator alloc] init];
@@ -139,11 +125,20 @@
 
 - (void)buttonClick:(FlatButton *)button
 {
-   [self pauseAllAnimations:YES forLayer:button.layer];
+    [self pauseAllAnimations:YES forLayer:button.layer];
     AnimationsListViewController *animationsListViewController = [[AnimationsListViewController alloc] init];
-    UIViewController *topVC = [self topViewController];
+    animationsListViewController.hidesBottomBarWhenPushed = YES;
+    UIViewController *topVC = [UIApplication itx_topViewController];
     topVC.navigationController.delegate = self;
-    [topVC.navigationController pushViewController:animationsListViewController animated:YES];
+    NSString *string = [NSString stringWithFormat:@"%@",[topVC class]];
+    NSLog(@"按钮点击-》top ViewController:%@",string);
+    if ([topVC isKindOfClass:objc_getClass("NewMainFrameViewController")]) {
+        NSLog(@"调用微信自己的PushViewController函数");
+        [topVC performSelector:@selector(PushViewController:) withObject:animationsListViewController];
+    }else{
+        NSLog(@"自行调用topVC.navigationController pushViewController");
+        [topVC.navigationController pushViewController:animationsListViewController animated:YES];
+    }
 }
 
 - (void)pauseAllAnimations:(BOOL)pause forLayer:(CALayer *)layer
@@ -159,7 +154,7 @@
     [self.circleButton.layer pop_removeAllAnimations];
     POPBasicAnimation *offscreenAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerPositionY];
     offscreenAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-    offscreenAnimation.toValue = @([self topViewController].view.frame.size.height+40);
+    offscreenAnimation.toValue = @(CGRectGetHeight([[UIScreen mainScreen] bounds])  + 40);
     offscreenAnimation.beginTime = CACurrentMediaTime() + 0.75;
     [self.circleButton.layer pop_addAnimation:offscreenAnimation forKey:@"offscreenAnimation"];
 
@@ -174,7 +169,7 @@
     springAnim.springBounciness = 15;
     springAnim.springSpeed = 5;
     springAnim.fromValue = @-40;
-    springAnim.toValue = @([self topViewController].view.frame.size.height - 100);
+    springAnim.toValue = @(CGRectGetHeight([[UIScreen mainScreen] bounds]) - 100);
     
     //设置不透明度动画
     POPBasicAnimation *opacityAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];
@@ -186,18 +181,7 @@
     [self.circleButton.layer pop_addAnimation:opacityAnim forKey:@"AnimationOpacity"];
 }
 
-- (UIViewController *)topViewController {
-    
-    UIViewController *rootViewController = ((UIWindow *)[[[UIApplication sharedApplication] windows] objectAtIndex:0]).rootViewController;
-    UIViewController *topViewController = rootViewController;
-    while (topViewController.presentedViewController) {
-        topViewController = rootViewController.presentedViewController;
-    }
-    if ([topViewController isKindOfClass:[UINavigationController class]]) {
-        topViewController = [((UINavigationController *)topViewController).viewControllers lastObject];
-    }
-    return topViewController;
-}
+
 
 #pragma mark - getters and setters
 - (void)setAuthValidTime:(double)seconds

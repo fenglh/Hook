@@ -10,6 +10,13 @@
 		54B9624AC5510A389FB86B16 /* libPods-hook1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1CAB1BDFBE48967FD7DEDFC /* libPods-hook1.a */; };
 		7D07C8A51C54A9BC00084141 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D07C8A41C54A9BC00084141 /* Foundation.framework */; };
 		7D07C8AF1C54A9BC00084141 /* hook1.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D07C8AE1C54A9BC00084141 /* hook1.mm */; };
+		DB1FC6FD1D76C7930055684D /* UIApplication+ITXExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = DB1FC6FB1D76C7930055684D /* UIApplication+ITXExtension.h */; };
+		DB1FC6FE1D76C7930055684D /* UIApplication+ITXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DB1FC6FC1D76C7930055684D /* UIApplication+ITXExtension.m */; };
+		DB1FC6FF1D76C7930055684D /* UIApplication+ITXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = DB1FC6FC1D76C7930055684D /* UIApplication+ITXExtension.m */; };
+		DB1FC70C1D77D9160055684D /* SIAlertView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DBD8EC611D756AC200C65A84 /* SIAlertView.bundle */; };
+		DB1FC70D1D77D9300055684D /* walkpaper.png in Resources */ = {isa = PBXBuildFile; fileRef = DBD8EC5E1D752B2400C65A84 /* walkpaper.png */; };
+		DB1FC70E1D77D9300055684D /* icon_fingerprint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB28F6731D4851E40095E891 /* icon_fingerprint@2x.png */; };
+		DB1FC70F1D77D9300055684D /* icon_fingerprint@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB28F6741D4851E40095E891 /* icon_fingerprint@3x.png */; };
 		DB28F67C1D4852810095E891 /* SpreadButtonManager.h in Headers */ = {isa = PBXBuildFile; fileRef = DB28F67A1D4852810095E891 /* SpreadButtonManager.h */; };
 		DB28F67D1D4852810095E891 /* SpreadButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DB28F67B1D4852810095E891 /* SpreadButtonManager.m */; };
 		DB28F68C1D486D6C0095E891 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB28F68B1D486D6C0095E891 /* QuartzCore.framework */; };
@@ -29,8 +36,6 @@
 		DB909E251D5DBFAA00BBD63E /* kefu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB28F6921D4883640095E891 /* kefu@2x.png */; };
 		DB909E261D5DBFAA00BBD63E /* muyu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB28F6931D4883640095E891 /* muyu@2x.png */; };
 		DB909E271D5DBFAA00BBD63E /* pen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB28F6941D4883640095E891 /* pen@2x.png */; };
-		DB909E281D5DBFAA00BBD63E /* SpreadButtonManager.h in Resources */ = {isa = PBXBuildFile; fileRef = DB28F67A1D4852810095E891 /* SpreadButtonManager.h */; };
-		DB909E291D5DBFAA00BBD63E /* SpreadButtonManager.m in Resources */ = {isa = PBXBuildFile; fileRef = DB28F67B1D4852810095E891 /* SpreadButtonManager.m */; };
 		DB909E2A1D5DBFAA00BBD63E /* icon_fingerprint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB28F6731D4851E40095E891 /* icon_fingerprint@2x.png */; };
 		DB909E2B1D5DBFAB00BBD63E /* icon_fingerprint@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB28F6741D4851E40095E891 /* icon_fingerprint@3x.png */; };
 		DB909E2C1D5DC35D00BBD63E /* SpreadButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DB28F67B1D4852810095E891 /* SpreadButtonManager.m */; };
@@ -125,6 +130,12 @@
 		D1CAB1BDFBE48967FD7DEDFC /* libPods-hook1.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hook1.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D518C78B66B7D554F52E258B /* Pods-hook1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hook1.release.xcconfig"; path = "Pods/Target Support Files/Pods-hook1/Pods-hook1.release.xcconfig"; sourceTree = "<group>"; };
 		DA1E08F29C8D04BFF1FBD708 /* Pods-Hook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hook/Pods-Hook.debug.xcconfig"; sourceTree = "<group>"; };
+		DB1FC6FB1D76C7930055684D /* UIApplication+ITXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+ITXExtension.h"; sourceTree = "<group>"; };
+		DB1FC6FC1D76C7930055684D /* UIApplication+ITXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+ITXExtension.m"; sourceTree = "<group>"; };
+		DB1FC7001D76D3950055684D /* libPods-Hook.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Hook.a"; path = "Pods/../build/Debug-iphoneos/libPods-Hook.a"; sourceTree = "<group>"; };
+		DB1FC7011D76D3950055684D /* libpop.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpop.a; path = "Pods/../build/Debug-iphoneos/pop/libpop.a"; sourceTree = "<group>"; };
+		DB1FC7021D76D3950055684D /* libShimmer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libShimmer.a; path = "Pods/../build/Debug-iphoneos/Shimmer/libShimmer.a"; sourceTree = "<group>"; };
+		DB1FC7061D76D3C30055684D /* libpop.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpop.a; path = "Pods/../build/Debug-iphoneos/pop/libpop.a"; sourceTree = "<group>"; };
 		DB28F6731D4851E40095E891 /* icon_fingerprint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fingerprint@2x.png"; sourceTree = "<group>"; };
 		DB28F6741D4851E40095E891 /* icon_fingerprint@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fingerprint@3x.png"; sourceTree = "<group>"; };
 		DB28F67A1D4852810095E891 /* SpreadButtonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreadButtonManager.h; sourceTree = "<group>"; };
@@ -263,6 +274,10 @@
 		7D07C8A31C54A9BC00084141 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DB1FC7061D76D3C30055684D /* libpop.a */,
+				DB1FC7001D76D3950055684D /* libPods-Hook.a */,
+				DB1FC7011D76D3950055684D /* libpop.a */,
+				DB1FC7021D76D3950055684D /* libShimmer.a */,
 				DB28F68D1D486DA30095E891 /* CoreGraphics.framework */,
 				DB28F68B1D486D6C0095E891 /* QuartzCore.framework */,
 				DBC9EABA1D0EA72B005020C3 /* UIKit.framework */,
@@ -277,6 +292,7 @@
 		7D07C8A61C54A9BC00084141 /* hook1 */ = {
 			isa = PBXGroup;
 			children = (
+				DB1FC6FA1D76C7650055684D /* Caterory */,
 				DBD8EC601D756AC200C65A84 /* SIAlertView */,
 				DB3CB92D1D6C175B00E587A1 /* FingerPrintAuth */,
 				DB909EB31D66F2BE00BBD63E /* FoldingView */,
@@ -350,6 +366,15 @@
 				7D07C8B31C54A9BC00084141 /* hook1.plist */,
 			);
 			name = DynamicLibraries;
+			sourceTree = "<group>";
+		};
+		DB1FC6FA1D76C7650055684D /* Caterory */ = {
+			isa = PBXGroup;
+			children = (
+				DB1FC6FB1D76C7930055684D /* UIApplication+ITXExtension.h */,
+				DB1FC6FC1D76C7930055684D /* UIApplication+ITXExtension.m */,
+			);
+			name = Caterory;
 			sourceTree = "<group>";
 		};
 		DB3CB92D1D6C175B00E587A1 /* FingerPrintAuth */ = {
@@ -578,6 +603,7 @@
 				DB909E9A1D62F2C400BBD63E /* OneKeyRecordTableViewController.h in Headers */,
 				DBC6A5221D06779E00A7E089 /* CaptainHook.h in Headers */,
 				DB909E5F1D62C4D700BBD63E /* AnimationsListViewController.h in Headers */,
+				DB1FC6FD1D76C7930055684D /* UIApplication+ITXExtension.h in Headers */,
 				DB909E651D62C56200BBD63E /* LCZoomTransition.h in Headers */,
 				DB909E771D62C59B00BBD63E /* HUTransitionVerticalLinesAnimator.h in Headers */,
 				DB909E731D62C59B00BBD63E /* HUTransitionGhostAnimator.h in Headers */,
@@ -602,6 +628,7 @@
 				7D07C89E1C54A9BC00084141 /* Headers */,
 				7D07C89F1C54A9BC00084141 /* ShellScript */,
 				9B366A4248B75DAC6007EC34 /* [CP] Copy Pods Resources */,
+				DB1FC70B1D77D9090055684D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -668,6 +695,17 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DB1FC70B1D77D9090055684D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB1FC70D1D77D9300055684D /* walkpaper.png in Resources */,
+				DB1FC70E1D77D9300055684D /* icon_fingerprint@2x.png in Resources */,
+				DB1FC70F1D77D9300055684D /* icon_fingerprint@3x.png in Resources */,
+				DB1FC70C1D77D9160055684D /* SIAlertView.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB909E031D5DB92200BBD63E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -683,8 +721,6 @@
 				DBD8EC5F1D752B2400C65A84 /* walkpaper.png in Resources */,
 				DB909E261D5DBFAA00BBD63E /* muyu@2x.png in Resources */,
 				DB909E271D5DBFAA00BBD63E /* pen@2x.png in Resources */,
-				DB909E281D5DBFAA00BBD63E /* SpreadButtonManager.h in Resources */,
-				DB909E291D5DBFAA00BBD63E /* SpreadButtonManager.m in Resources */,
 				DB909E2A1D5DBFAA00BBD63E /* icon_fingerprint@2x.png in Resources */,
 				DB909E2B1D5DBFAB00BBD63E /* icon_fingerprint@3x.png in Resources */,
 				DB909E171D5DB92200BBD63E /* LaunchScreen.storyboard in Resources */,
@@ -792,6 +828,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB909E661D62C56200BBD63E /* LCZoomTransition.m in Sources */,
+				DB1FC6FE1D76C7930055684D /* UIApplication+ITXExtension.m in Sources */,
 				DB909EB71D66F2DC00BBD63E /* FoldingView.m in Sources */,
 				DB909E961D62F01500BBD63E /* RedPacketTableViewController.m in Sources */,
 				DB909EA61D630A4A00BBD63E /* ITXTableViewController.m in Sources */,
@@ -832,6 +869,7 @@
 				DB909EA71D630B5800BBD63E /* ITXTableViewController.m in Sources */,
 				DB909EA21D62F41100BBD63E /* OneKeyRecordTableViewController.m in Sources */,
 				DB909EA11D62F40C00BBD63E /* ITXAboutViewController.m in Sources */,
+				DB1FC6FF1D76C7930055684D /* UIApplication+ITXExtension.m in Sources */,
 				DB909E911D62EC8D00BBD63E /* AvoidRevokeViewController.m in Sources */,
 				DB909E8B1D62E26200BBD63E /* ITXBaseViewController.m in Sources */,
 				DBD8EC691D756AC200C65A84 /* SIAlertView.m in Sources */,
@@ -944,9 +982,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(iOSOpenDevPath)/lib/**",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/pop",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/Shimmer",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b2b3e49f-e71c-440d-a512-fcd69c3c5463";
+				PROVISIONING_PROFILE = "3ee00653-6474-48f5-983e-362470d49882";
 				iOSOpenDevBuildPackageOnAnyBuild = NO;
 				iOSOpenDevCopyOnBuild = NO;
 				iOSOpenDevDevice = "";
@@ -976,9 +1018,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(iOSOpenDevPath)/lib/**",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/pop",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/Shimmer",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b2b3e49f-e71c-440d-a512-fcd69c3c5463";
+				PROVISIONING_PROFILE = "3ee00653-6474-48f5-983e-362470d49882";
 				iOSOpenDevBuildPackageOnAnyBuild = NO;
 				iOSOpenDevCopyOnBuild = NO;
 				iOSOpenDevDevice = "";
@@ -1021,6 +1067,10 @@
 				INFOPLIST_FILE = Hook/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.com.bluemoon.sfa;
@@ -1061,6 +1111,10 @@
 				INFOPLIST_FILE = Hook/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.com.bluemoon.sfa;
 				PRODUCT_NAME = "$(TARGET_NAME)";

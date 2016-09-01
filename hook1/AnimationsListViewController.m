@@ -37,8 +37,7 @@
 {
     [super viewDidLoad];
     self.title = @"iOS逆向";
-    // initialise the custom transition
-//    self.tableView.backgroundColor = [UIColor customBlueColor];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]]; 
     [self configureTableView];
     [self configureTitleView];
 }
