@@ -109,7 +109,6 @@ CHMethod(1,void,NewMainFrameViewController,viewWillAppear,BOOL, animated)
 {
     CHSuper(1, NewMainFrameViewController,viewWillAppear,animated);
     [UIApplication itx_topViewController].navigationController.delegate = nil;
-    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
     NSLog(@"重置navigationController.delegate = nil");
     
 }
@@ -312,8 +311,8 @@ __attribute__((constructor)) static void entry()
     CHClassHook(2,MMInputToolView,MMTransparentButton_touchesMoved,withEvent);
     
     ///***********DEMO测试*************//
-//    CHLoadLateClass(ViewController);
-//    CHClassHook(0,ViewController,viewDidLoad);
+    CHLoadLateClass(ViewController);
+    CHClassHook(0,ViewController,viewDidLoad);
     
     
 }

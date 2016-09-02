@@ -18,10 +18,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    ViewController *vc = [[ViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    UITabBarController *tabBarVc = [[UITabBarController alloc] init];
     
-    window.rootViewController = nav;
+    //b.创建子控制器
+    ViewController *c1=[[ViewController alloc]init];
+    c1.view.backgroundColor=[UIColor grayColor];
+    c1.view.backgroundColor=[UIColor greenColor];
+    c1.tabBarItem.title=@"消息";
+    c1.tabBarItem.image=[UIImage imageNamed:@"clock"];
+    c1.tabBarItem.badgeValue=@"123";
+    UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:c1];
+
+    UIViewController *c2=[[UIViewController alloc]init];
+    c2.view.backgroundColor=[UIColor brownColor];
+    c2.tabBarItem.title=@"联系人";
+    c2.tabBarItem.image=[UIImage imageNamed:@"drink"];
+    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:c2];
+    
+    tabBarVc.viewControllers = @[nav1,nav2];
+    window.rootViewController = tabBarVc;
     [window makeKeyAndVisible];
     self.window = window;
     return YES;

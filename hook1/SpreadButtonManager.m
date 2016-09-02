@@ -100,14 +100,9 @@
     self.circleButton = [FlatButton button];
     self.circleButton.backgroundColor = [UIColor customBlueColor];
     self.circleButton.frame = CGRectMake(20, -40, 40, 40);
-    self.circleButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.circleButton.layer setMasksToBounds:YES];
     [self.circleButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
     [self.circleButton.layer setCornerRadius:20.0f];
-//    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-//    [self.circleButton addGestureRecognizer:recognizer];
-    
     UIViewController *topViewController = [UIApplication itx_topViewController];
     NSLog(@"初始化按钮在 :%@",[topViewController class]);
     [topViewController.view addSubview:self.circleButton];
@@ -151,26 +146,37 @@
 
 - (void)performFlyOutAnimation
 {
+    NSLog(@"performFlyOutAnimation>>按钮位置:x=%f,y=%f,width=%f,height=%f",
+          self.circleButton.frame.origin.x,
+          self.circleButton.frame.origin.y,
+          self.circleButton.frame.size.width,
+          self.circleButton.frame.size.height);
     [self.circleButton.layer pop_removeAllAnimations];
-    POPBasicAnimation *offscreenAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    POPBasicAnimation *offscreenAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerPosition];
     offscreenAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-    offscreenAnimation.toValue = @(CGRectGetHeight([[UIScreen mainScreen] bounds])  + 40);
+    offscreenAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(40, CGRectGetHeight([[UIScreen mainScreen] bounds])  + 40)];
     offscreenAnimation.beginTime = CACurrentMediaTime() + 0.75;
+    [offscreenAnimation setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
+        if (finished) {
+
+            self.circleButton.layer.position = CGPointMake(40, -40);
+
+        }
+    }];
     [self.circleButton.layer pop_addAnimation:offscreenAnimation forKey:@"offscreenAnimation"];
 
 }
 
 - (void)performFlyInAnimation
 {
+
     [self.circleButton.layer pop_removeAllAnimations];
     //设置弹簧动画
-    POPSpringAnimation *springAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    POPSpringAnimation *springAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
     springAnim.beginTime = CACurrentMediaTime() + 0.75;
     springAnim.springBounciness = 15;
     springAnim.springSpeed = 5;
-    springAnim.fromValue = @-40;
-    springAnim.toValue = @(CGRectGetHeight([[UIScreen mainScreen] bounds]) - 100);
-    
+    springAnim.toValue = [NSValue valueWithCGPoint:CGPointMake(40, CGRectGetHeight([[UIScreen mainScreen] bounds])-100)];
     //设置不透明度动画
     POPBasicAnimation *opacityAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];
     //时间函数（加速入，减速出）
