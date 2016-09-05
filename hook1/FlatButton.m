@@ -64,7 +64,7 @@
 - (void)scaleToSmall
 {
     POPBasicAnimation *scaleAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(0.95f, 0.95f)];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(0.75f, 0.75f)];
     [self.layer pop_addAnimation:scaleAnimation forKey:@"layerScaleSmallAnimation"];
 }
 

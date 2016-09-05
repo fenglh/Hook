@@ -29,29 +29,62 @@ CHDeclareClass(ViewController);
 //****************************微信hook函数*************************************//
 
 
+
+//每次显示都修改按钮名字
 CHMethod(1,void,BaseMsgContentViewController,viewWillAppear,BOOL, animated)
 {
     CHSuper(1, BaseMsgContentViewController,viewWillAppear,animated);
     UIViewController *selfVC = [UIApplication itx_topViewController];
     if (![selfVC isKindOfClass:objc_getClass("BaseMsgContentViewController")]) {
-        NSLog(@"逆向日志>> topViewController 不是 BaseMsgContentViewController");
         return;
     }
     Ivar inputToolViewIvar = class_getInstanceVariable(objc_getClass("BaseMsgContentViewController"), "_inputToolView");
-    id toolView = object_getIvar(selfVC, inputToolViewIvar);
-    NSLog(@"逆向日志>> selfVC:%@, 变量toolView:%@",selfVC,toolView);
+    id inputToolView = object_getIvar(selfVC, inputToolViewIvar);
+    NSLog(@"逆向日志>> selfVC:%@, 变量toolView:%@",selfVC,inputToolView);
+    //获取录音按钮对象
     Ivar recordButtonIvar = class_getInstanceVariable(objc_getClass("MMInputToolView"),"_recordButton");
-    id  recordButton = object_getIvar(toolView, recordButtonIvar);
-    NSLog(@"逆向日志>> recordButton:%@",recordButton);
+    UIButton *recordButton = object_getIvar(inputToolView, recordButtonIvar);
+    
     if ([SpreadButtonManager sharedInstance].oneKeyRecord) {
         [(UIButton *)recordButton setTitle:@"一键 说话" forState:0];
     }else{
         [(UIButton *)recordButton setTitle:@"按住 说话" forState:0];
     }
-    
 }
 
+////新增“结束 说话”按钮到“inputToolView”上
+//CHMethod(0,void,BaseMsgContentViewController,viewDidLoad)
+//{
+//    CHSuper(0, BaseMsgContentViewController,viewDidLoad);
+//    UIViewController *selfVC = [UIApplication itx_topViewController];
+//    Ivar inputToolViewIvar = class_getInstanceVariable(objc_getClass("BaseMsgContentViewController"), "_inputToolView");
+//    UIView *inputToolView = object_getIvar(selfVC, inputToolViewIvar);
+//    NSLog(@"逆向日志>> selfVC:%@, 变量toolView:%@",selfVC,inputToolView);
+//    //获取录音按钮对象
+//    Ivar recordButtonIvar = class_getInstanceVariable(objc_getClass("MMInputToolView"),"_recordButton");
+//    UIButton *recordButton = object_getIvar(inputToolView, recordButtonIvar);
+//    
+//    Ivar toolViewIvar = class_getInstanceVariable(objc_getClass("MMInputToolView"), "_toolView");
+//    UIView *toolView = object_getIvar(inputToolView, toolViewIvar);
+//    
+//    UIButton *finishButton = [[UIButton alloc] initWithFrame:CGRectMake(recordButton.frame.origin.x,
+//                                                                        CGRectGetHeight(toolView.bounds),
+//                                                                        recordButton.frame.size.width,
+//                                                                        recordButton.frame.size.height)];
+//    [finishButton setBackgroundColor:[UIColor redColor]];
+//    finishButton.layer.cornerRadius = 2;
+//    [finishButton setTitle:@"结束 说话" forState:UIControlStateNormal];
+//    NSLog(@"逆向日志>>初始化finishButton:toolView=%@,finishButton=%@",inputToolView,finishButton);
+//    [finishButton addTarget:inputToolView action:@selector(stopRecording:) forControlEvents:UIControlEventTouchUpInside];
+//    //add到toolView上
+//    [toolView addSubview:finishButton];
+//    
+//    //关联属性
+//    objc_setAssociatedObject(selfVC, "finishButton_key", finishButton, OBJC_ASSOCIATION_RETAIN);
+//    
+//}
 
+//一键录音
 CHMethod(2, void,MMInputToolView,MMTransparentButton_touchesEnded,id,arg1,withEvent,id,arg2)
 {
     if ([SpreadButtonManager sharedInstance].oneKeyRecord) {
@@ -59,6 +92,7 @@ CHMethod(2, void,MMInputToolView,MMTransparentButton_touchesEnded,id,arg1,withEv
     }
     CHSuper(2, MMInputToolView,MMTransparentButton_touchesEnded,arg1,withEvent,arg2);
 }
+//一键录音
 CHMethod(2, void,MMInputToolView,MMTransparentButton_touchesMoved,id,arg1,withEvent,id,arg2)
 {
     if (![SpreadButtonManager sharedInstance].oneKeyRecord) {
@@ -66,6 +100,7 @@ CHMethod(2, void,MMInputToolView,MMTransparentButton_touchesMoved,id,arg1,withEv
     }
     CHSuper(2, MMInputToolView,MMTransparentButton_touchesMoved,arg1,withEvent,arg2);
 }
+//一键录音
 CHMethod(2, void,MMInputToolView,MMTransparentButton_touchesCancelled,id,arg1,withEvent,id,arg2)
 {
     if (![SpreadButtonManager sharedInstance].oneKeyRecord) {
@@ -73,6 +108,7 @@ CHMethod(2, void,MMInputToolView,MMTransparentButton_touchesCancelled,id,arg1,wi
     }
     CHSuper(2, MMInputToolView,MMTransparentButton_touchesCancelled,arg1,withEvent,arg2);
 }
+//一键录音
 CHMethod(2, void,MMInputToolView,MMTransparentButton_touchesBegan,id,arg1,withEvent,id,arg2)
 {
     if (![SpreadButtonManager sharedInstance].oneKeyRecord) {
@@ -81,11 +117,58 @@ CHMethod(2, void,MMInputToolView,MMTransparentButton_touchesBegan,id,arg1,withEv
     }
     UIViewController *selfVC = [UIApplication itx_topViewController];
     Ivar inputToolViewIvar = class_getInstanceVariable(objc_getClass("BaseMsgContentViewController"), "_inputToolView");
-    id toolView = object_getIvar(selfVC, inputToolViewIvar);
-    [toolView performSelector:@selector(resalStartRecording) withObject:nil];
-    NSLog(@"调用toolView resalStartRecording方法:%@",toolView);
-}
+    UIView *inputtoolView = object_getIvar(selfVC, inputToolViewIvar);
+    NSLog(@"调用toolView resalStartRecording方法:%@",inputtoolView);
+    [inputtoolView performSelector:@selector(resalStartRecording) withObject:nil];
 
+}
+//
+//CHMethod(0, void,MMInputToolView,resalStartRecording)
+//{
+//    CHSuper(0, MMInputToolView,resalStartRecording);
+//    //将“一键 结束”显示出来
+//    UIViewController *selfVC = [UIApplication itx_topViewController];
+//    Ivar inputToolViewIvar = class_getInstanceVariable(objc_getClass("BaseMsgContentViewController"), "_inputToolView");
+//    UIView *inputtoolView = object_getIvar(selfVC, inputToolViewIvar);
+//    
+//    UIButton *finishButton = objc_getAssociatedObject(selfVC, "finishButton_key");
+//    NSLog(@"逆向日志>>获取关联按钮,并显示:%@",finishButton);
+//    if (finishButton) {
+//        Ivar recordButtonIvar = class_getInstanceVariable(objc_getClass("MMInputToolView"),"_recordButton");
+//        UIButton *recordButton = object_getIvar(inputtoolView, recordButtonIvar);
+//        finishButton.frame = recordButton.frame;
+//        [inputtoolView bringSubviewToFront:finishButton];
+//    }
+//}
+
+//CHMethod(1, void,MMInputToolView,stopRecording,id,arg1)
+//{
+//    if ([SpreadButtonManager sharedInstance].oneKeyRecord) {
+//        UIViewController *selfVC = [UIApplication itx_topViewController];
+//        Ivar inputToolViewIvar = class_getInstanceVariable(objc_getClass("BaseMsgContentViewController"), "_inputToolView");
+//        UIView *inputtoolView = object_getIvar(selfVC, inputToolViewIvar);
+//        NSLog(@"调用toolView resalStartRecording方法:%@",inputtoolView);
+//        [inputtoolView performSelector:@selector(resalStartRecording) withObject:nil];
+//        
+//        //隐藏按钮
+//        Ivar toolViewIvar = class_getInstanceVariable(objc_getClass("MMInputToolView"), "_toolView");
+//        UIView *toolView = object_getIvar(inputtoolView, toolViewIvar);
+//        UIButton *finishButton = objc_getAssociatedObject(toolView, "finishButton_key");
+//        NSLog(@"逆向日志>>获取关联按钮,并隐藏:%@",finishButton);
+//        if (finishButton) {
+//            Ivar recordButtonIvar = class_getInstanceVariable(objc_getClass("MMInputToolView"),"_recordButton");
+//            UIButton *recordButton = object_getIvar(inputtoolView, recordButtonIvar);
+//            finishButton.frame = CGRectMake(recordButton.frame.origin.x,
+//                                            toolView.frame.origin.y+CGRectGetHeight(toolView.bounds) + 5 + 49,
+//                                            recordButton.frame.size.width,
+//                                            recordButton.frame.size.height);
+//            
+//            [inputtoolView sendSubviewToBack:finishButton];
+//        }
+//    }
+//    
+//    CHSuper(1, MMInputToolView,stopRecording,arg1);
+//}
 
 //聊天内容防撤回
 CHMethod(1,void, CMessageMgr,onRevokeMsg,id,arg1)
@@ -302,9 +385,12 @@ __attribute__((constructor)) static void entry()
     
     //微信一键说话
     CHLoadLateClass(BaseMsgContentViewController);
+//    CHClassHook(0,BaseMsgContentViewController,viewDidLoad);
     CHClassHook(1,BaseMsgContentViewController,viewWillAppear);
     //
     CHLoadLateClass(MMInputToolView);
+//    CHClassHook(1,MMInputToolView,stopRecording);
+//    CHClassHook(0,MMInputToolView,resalStartRecording);
     CHClassHook(2,MMInputToolView,MMTransparentButton_touchesBegan,withEvent);
     CHClassHook(2,MMInputToolView,MMTransparentButton_touchesCancelled,withEvent);
     CHClassHook(2,MMInputToolView,MMTransparentButton_touchesEnded,withEvent);

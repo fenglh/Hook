@@ -17,6 +17,10 @@
 		DB1FC70D1D77D9300055684D /* walkpaper.png in Resources */ = {isa = PBXBuildFile; fileRef = DBD8EC5E1D752B2400C65A84 /* walkpaper.png */; };
 		DB1FC70E1D77D9300055684D /* icon_fingerprint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB28F6731D4851E40095E891 /* icon_fingerprint@2x.png */; };
 		DB1FC70F1D77D9300055684D /* icon_fingerprint@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB28F6741D4851E40095E891 /* icon_fingerprint@3x.png */; };
+		DB1FC7121D79175C0055684D /* grn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB1FC7101D79175C0055684D /* grn@2x.png */; };
+		DB1FC7131D79175C0055684D /* grn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB1FC7101D79175C0055684D /* grn@2x.png */; };
+		DB1FC7141D79175C0055684D /* grn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB1FC7111D79175C0055684D /* grn@3x.png */; };
+		DB1FC7151D79175C0055684D /* grn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB1FC7111D79175C0055684D /* grn@3x.png */; };
 		DB28F67C1D4852810095E891 /* SpreadButtonManager.h in Headers */ = {isa = PBXBuildFile; fileRef = DB28F67A1D4852810095E891 /* SpreadButtonManager.h */; };
 		DB28F67D1D4852810095E891 /* SpreadButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DB28F67B1D4852810095E891 /* SpreadButtonManager.m */; };
 		DB28F68C1D486D6C0095E891 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB28F68B1D486D6C0095E891 /* QuartzCore.framework */; };
@@ -136,6 +140,8 @@
 		DB1FC7011D76D3950055684D /* libpop.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpop.a; path = "Pods/../build/Debug-iphoneos/pop/libpop.a"; sourceTree = "<group>"; };
 		DB1FC7021D76D3950055684D /* libShimmer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libShimmer.a; path = "Pods/../build/Debug-iphoneos/Shimmer/libShimmer.a"; sourceTree = "<group>"; };
 		DB1FC7061D76D3C30055684D /* libpop.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpop.a; path = "Pods/../build/Debug-iphoneos/pop/libpop.a"; sourceTree = "<group>"; };
+		DB1FC7101D79175C0055684D /* grn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grn@2x.png"; sourceTree = "<group>"; };
+		DB1FC7111D79175C0055684D /* grn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grn@3x.png"; sourceTree = "<group>"; };
 		DB28F6731D4851E40095E891 /* icon_fingerprint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fingerprint@2x.png"; sourceTree = "<group>"; };
 		DB28F6741D4851E40095E891 /* icon_fingerprint@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_fingerprint@3x.png"; sourceTree = "<group>"; };
 		DB28F67A1D4852810095E891 /* SpreadButtonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreadButtonManager.h; sourceTree = "<group>"; };
@@ -543,6 +549,8 @@
 		DB909EAE1D66ED8F00BBD63E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DB1FC7101D79175C0055684D /* grn@2x.png */,
+				DB1FC7111D79175C0055684D /* grn@3x.png */,
 				DBD8EC5E1D752B2400C65A84 /* walkpaper.png */,
 				DBA88AE51D6FCCFC00E3BD96 /* os_qipao_left@2x.png */,
 				DBA88AE11D6FCC6000E3BD96 /* os_qipao_right@2x.png */,
@@ -703,6 +711,8 @@
 				DB1FC70E1D77D9300055684D /* icon_fingerprint@2x.png in Resources */,
 				DB1FC70F1D77D9300055684D /* icon_fingerprint@3x.png in Resources */,
 				DB1FC70C1D77D9160055684D /* SIAlertView.bundle in Resources */,
+				DB1FC7121D79175C0055684D /* grn@2x.png in Resources */,
+				DB1FC7141D79175C0055684D /* grn@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,6 +722,7 @@
 			files = (
 				DBA88AE31D6FCC6100E3BD96 /* os_qipao_right@2x.png in Resources */,
 				DB909E221D5DBFAA00BBD63E /* add@2x.png in Resources */,
+				DB1FC7131D79175C0055684D /* grn@2x.png in Resources */,
 				DB909E231D5DBFAA00BBD63E /* clock@2x.png in Resources */,
 				DBA88AE61D6FCCFC00E3BD96 /* os_qipao_left@2x.png in Resources */,
 				DB909E241D5DBFAA00BBD63E /* drink@2x.png in Resources */,
@@ -720,6 +731,7 @@
 				DB909EC31D67815900BBD63E /* eyu@2x.jpeg in Resources */,
 				DBD8EC5F1D752B2400C65A84 /* walkpaper.png in Resources */,
 				DB909E261D5DBFAA00BBD63E /* muyu@2x.png in Resources */,
+				DB1FC7151D79175C0055684D /* grn@3x.png in Resources */,
 				DB909E271D5DBFAA00BBD63E /* pen@2x.png in Resources */,
 				DB909E2A1D5DBFAA00BBD63E /* icon_fingerprint@2x.png in Resources */,
 				DB909E2B1D5DBFAB00BBD63E /* icon_fingerprint@3x.png in Resources */,

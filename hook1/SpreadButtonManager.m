@@ -160,6 +160,7 @@
         if (finished) {
 
             self.circleButton.layer.position = CGPointMake(40, -40);
+            self.circleButton.hidden = YES;
 
         }
     }];
@@ -169,7 +170,8 @@
 
 - (void)performFlyInAnimation
 {
-
+    
+    self.circleButton.hidden = NO;
     [self.circleButton.layer pop_removeAllAnimations];
     //设置弹簧动画
     POPSpringAnimation *springAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];

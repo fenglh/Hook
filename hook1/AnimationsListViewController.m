@@ -37,7 +37,6 @@
 {
     [super viewDidLoad];
     self.title = @"iOS逆向";
-    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]]; 
     [self configureTableView];
     [self configureTitleView];
 }
@@ -70,6 +69,7 @@
     MenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
                                                             forIndexPath:indexPath];
     cell.textLabel.text = [self.items[indexPath.row] firstObject];
+    cell.imageView.image = [UIImage imageNamed:@"grn.png"];
     return cell;
 }
 

@@ -89,33 +89,41 @@
 {
     [self hideBubbleAnimation];
     self.slider.value = rate;
-    POPSpringAnimation *sliderPositionAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionX];
-    sliderPositionAnim.toValue = @(-CGRectGetWidth(self.view.bounds));
-    sliderPositionAnim.springSpeed = 5.0f;
-    sliderPositionAnim.springBounciness = 10.0f;
-    [self.slider pop_addAnimation:sliderPositionAnim forKey:@"SliderPositionAnim"];
+    CGFloat sliderToX = CGRectGetWidth(self.view.bounds)/2.0;
+    
+    POPSpringAnimation *sliderHidePositionAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionX];
+    sliderHidePositionAnim.toValue = @(-sliderToX);
+    sliderHidePositionAnim.springSpeed = 5.0f;
+    sliderHidePositionAnim.springBounciness = 10.0f;
+    [self.slider pop_addAnimation:sliderHidePositionAnim forKey:@"SliderHidePositionAnim"];
 }
 - (void)showSliderAnimationWithRate:(CGFloat)rate anim:(BOOL)anim content:(NSString *)content
 {
-    CGFloat fromX = (CGRectGetWidth(self.view.bounds)-20*2) * rate + 22;
-    CGPoint fromPoint = CGPointMake(fromX, -44);
-    CGPoint toPoint = CGPointMake(fromX, self.slider.frame.origin.y);
+    CGFloat bubbleFromX = (CGRectGetWidth(self.view.bounds)-20*2) * rate + 22;
+    CGPoint bubbleFromPoint = CGPointMake(bubbleFromX, -44);
+    CGPoint bubbleToPoint = CGPointMake(bubbleFromX, self.slider.frame.origin.y);
+    
+    CGFloat sliderToX = CGRectGetWidth(self.view.bounds)/2.0;
+    CGFloat sliderToY = self.tapButton.frame.origin.y -40;
+    NSLog(@"sliderToX=%f, sliderToY=%f",sliderToX, sliderToY);
     self.slider.value = rate;
     if (anim) {
-        POPSpringAnimation *sliderPositionAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionX];
-        sliderPositionAnim.toValue = @(CGRectGetWidth(self.view.bounds)/2);
-        sliderPositionAnim.springSpeed = 5.0f;
-        sliderPositionAnim.springBounciness = 10.0f;
-        [sliderPositionAnim setCompletionBlock:^(POPAnimation *anim, BOOL finished ) {
-            [self showBubbleAnimationFromPosition:fromPoint toPoint:toPoint content:content];
+        POPSpringAnimation *sliderShowPositionAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
+        sliderShowPositionAnim.fromValue = [NSValue valueWithCGPoint:CGPointMake(-sliderToX, sliderToY)];
+        sliderShowPositionAnim.toValue = [NSValue valueWithCGPoint:
+                                          CGPointMake(sliderToX,sliderToY)];
+        sliderShowPositionAnim.springSpeed = 5.0f;
+        sliderShowPositionAnim.springBounciness = 10.0f;
+        [sliderShowPositionAnim setCompletionBlock:^(POPAnimation *anim, BOOL finished ) {
+            [self showBubbleAnimationFromPosition:bubbleFromPoint toPoint:bubbleToPoint content:content];
         }];
-        [self.slider pop_addAnimation:sliderPositionAnim forKey:@"SliderPositionAnim"];
+        [self.slider pop_addAnimation:sliderShowPositionAnim forKey:@"ScliderShowPositionAnim"];
     }else{
         self.slider.frame = CGRectMake(20,
-                                       self.slider.frame.origin.y,
+                                       sliderToY-CGRectGetHeight(self.slider.bounds)/2.0,
                                        CGRectGetWidth(self.slider.bounds),
                                        CGRectGetHeight(self.slider.bounds));
-        [self showBubbleAnimationFromPosition:fromPoint toPoint:toPoint content:content];
+        [self showBubbleAnimationFromPosition:bubbleFromPoint toPoint:bubbleToPoint content:content];
     }
 
 }
@@ -435,8 +443,8 @@
     self.slider.tintColor = [UIColor customGreenColor];
     self.slider.translatesAutoresizingMaskIntoConstraints = NO;
     [self.slider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
-    self.slider.frame = CGRectMake(-CGRectGetWidth(self.view.bounds)-20*2, CGRectGetHeight(self.view.bounds)/2 + 160/2 +20, CGRectGetWidth(self.view.bounds)-20*2, 44);
     self.slider.layer.opacity = 0;
+    self.slider.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds) - 20 *2, 44);
     [self.view addSubview:self.slider];
 }
 
