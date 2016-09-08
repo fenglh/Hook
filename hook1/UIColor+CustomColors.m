@@ -2,8 +2,8 @@
 //  UIColor+CustomColors.m
 //  Popping
 //
-//  Created by André Schneider on 25.05.14.
-//  Copyright (c) 2014 André Schneider. All rights reserved.
+//  Created by fenglh on 2016/08/08.
+//  Copyright (c) 2014 fenglh. All rights reserved.
 //
 
 #import "UIColor+CustomColors.h"

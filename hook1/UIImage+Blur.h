@@ -2,8 +2,8 @@
 //  UIImage+Blur.h
 //  Popping
 //
-//  Created by André Schneider on 10.07.14.
-//  Copyright (c) 2014 André Schneider. All rights reserved.
+//  Created by fenglh on 10.07.14.
+//  Copyright (c) 2014 fenglh. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

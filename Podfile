@@ -6,9 +6,11 @@ inhibit_all_warnings!
 target:Hook do
     pod 'pop'
     pod 'Shimmer'
+    pod 'Masonry'
 end
 
 target:hook1 do
-pod 'pop'
-pod 'Shimmer'
+    pod 'pop'
+    pod 'Shimmer'
+    pod 'Masonry'
 end

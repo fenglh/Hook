@@ -2,8 +2,8 @@
 //  FoldView.m
 //  Popping
 //
-//  Created by André Schneider on 22.06.14.
-//  Copyright (c) 2014 André Schneider. All rights reserved.
+//  Created by fenglh on 22.06.14.
+//  Copyright (c) 2014 fenglh. All rights reserved.
 //
 
 #import "FoldingView.h"

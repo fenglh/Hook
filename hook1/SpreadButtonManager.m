@@ -3,7 +3,7 @@
 //  FloatWindowDemo
 //
 //  Created by fenglh on 16/7/25.
-//  Copyright © 2016年 xiaoxigame. All rights reserved.
+//  Copyright © 2016年 fenglh. All rights reserved.
 //
 
 #import "SpreadButtonManager.h"
@@ -15,6 +15,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "UIApplication+ITXExtension.h"
 #import <objc/runtime.h>
+#import "SIAlertView.h"
 
 #define TopView [UIApplication itx_topViewController].view
 
@@ -38,6 +39,7 @@
     dispatch_once(&once, ^{
         instanced = [[SpreadButtonManager alloc] init];
         [instanced configureUI];
+        [instanced configureAlertView];
     });
     return instanced;
 }
@@ -95,6 +97,18 @@
     [self addCircleButton];
 }
 
+- (void)configureAlertView
+{
+    [[SIAlertView appearance] setMessageFont:[UIFont fontWithName:@"Avenir-Light" size:15]];
+    [[SIAlertView appearance] setTitleColor:[UIColor customGrayColor]];
+    [[SIAlertView appearance] setMessageColor:[UIColor customGrayColor]];
+    [[SIAlertView appearance] setCornerRadius:12];
+    [[SIAlertView appearance] setShadowRadius:20];
+    [[SIAlertView appearance] setViewBackgroundColor:[UIColor whiteColor]];
+    [[SIAlertView appearance] setButtonColor:[UIColor customBlueColor]];
+    [[SIAlertView appearance] setCancelButtonColor:[UIColor customRedColor]];
+    [[SIAlertView appearance] setTransitionStyle:SIAlertViewTransitionStyleDropDown];
+}
 - (void)addCircleButton
 {
     self.circleButton = [FlatButton button];

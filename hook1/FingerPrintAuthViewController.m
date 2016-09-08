@@ -14,6 +14,12 @@
 #import "FlatButton.h"
 #import "SIAlertView.h"
 
+#define SliderPositionY PositionCenter.y+Diameter/2.0 + 20
+#define Diameter 160
+#define PositionRightUp CGPointMake(self.view.bounds.size.width - self.view.bounds.size.width/2/2, self.view.bounds.size.height/2/2)
+#define PositionLeftUp  CGPointMake(self.view.bounds.size.width/2/2, self.view.bounds.size.height/2/2)
+#define PositionCenter CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2)
+
 
 @interface FingerPrintAuthViewController ()
 @property(nonatomic, strong)CircleView *circleViewImage;
@@ -25,64 +31,26 @@
 @end
 @implementation FingerPrintAuthViewController
 
-
+#pragma mark - 生命周期
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor customYellowColor];
     
-    [self configSIAlert];
-    CGFloat rate = [SpreadButtonManager sharedInstance].authTimeLeftSecond/3600.0;
     [self addImageCircle];
     [self addLabelCircle];
-    [self addSlider];
     [self addTapButton];
+    [self addSlider];
     [self addErrorLabel];
     [self addBubbleLabel];
-    if (rate != 0) {
-        //设置imageCircle右上角，并缩小一倍
-        self.circleViewImage.center = CGPointMake(self.view.bounds.size.width - self.view.bounds.size.width/2/2, self.view.bounds.size.height/2/2);
-        self.circleViewImage.transform = CGAffineTransformScale(self.circleViewImage.transform, 0.5, 0.5);
-        self.circleViewImage.lineColor = [UIColor customBlueColor];
-        [self.circleViewImage animationWithStrokeend:0.0 strokeAnim:NO animFinishedBlock:nil];
-        //设置labelCircle居中
-        self.circleViewLabel.center = CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2);
-        [self.circleViewLabel labelCountDownAnimationWithRate:rate finishedBlock:^{
-            [self exchangeAnimationWithRate:0];
-            [self hideSliderAnimationWithRate:0];
-            [self buttonAnimationToClosed];
-        }];;
-        [self.circleViewLabel animationWithStrokeend:rate strokeAnim:NO animFinishedBlock:nil];
-        //slider
-        [self showSliderAnimationWithRate:rate anim:NO content:nil];
-        
-        //按钮
-        self.tapButton.tag = 1;
-        [self.tapButton setTitle:@"已开启" forState:UIControlStateNormal];
-        self.tapButton.backgroundColor = self.circleViewLabel.lineColor;
 
-        
-    }else{
-        //设置circleViewLabel左上角，并缩小一倍
-        self.circleViewLabel.center = CGPointMake(self.view.bounds.size.width/2/2, self.view.bounds.size.height/2/2);
-        self.circleViewLabel.transform = CGAffineTransformScale(self.circleViewLabel.transform, 0.5, 0.5);
-        //设置circleViewImage居中
-        self.circleViewImage.center = CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2);
-        [self.circleViewImage animationWithStrokeend:1.0 strokeAnim:YES animFinishedBlock:nil];
-        
-//        [self.circleViewImage animationWithStrokeEnd:1.0 labelAutoCountDownAnimation:NO];
-        //按钮
-        self.tapButton.tag = 0;
-        [self.tapButton setTitle:@"已关闭" forState:UIControlStateNormal];
-        self.tapButton.backgroundColor = self.circleViewImage.lineColor;
-        
-    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [self.circleViewLabel dismissAnimation];
 }
+
 
 
 - (void)hideSliderAnimationWithRate:(CGFloat)rate
@@ -97,34 +65,24 @@
     sliderHidePositionAnim.springBounciness = 10.0f;
     [self.slider pop_addAnimation:sliderHidePositionAnim forKey:@"SliderHidePositionAnim"];
 }
-- (void)showSliderAnimationWithRate:(CGFloat)rate anim:(BOOL)anim content:(NSString *)content
+- (void)showSliderAnimationWithRate:(CGFloat)rate content:(NSString *)content
 {
     CGFloat bubbleFromX = (CGRectGetWidth(self.view.bounds)-20*2) * rate + 22;
     CGPoint bubbleFromPoint = CGPointMake(bubbleFromX, -44);
     CGPoint bubbleToPoint = CGPointMake(bubbleFromX, self.slider.frame.origin.y);
     
     CGFloat sliderToX = CGRectGetWidth(self.view.bounds)/2.0;
-    CGFloat sliderToY = self.tapButton.frame.origin.y -40;
-    NSLog(@"sliderToX=%f, sliderToY=%f",sliderToX, sliderToY);
     self.slider.value = rate;
-    if (anim) {
-        POPSpringAnimation *sliderShowPositionAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
-        sliderShowPositionAnim.fromValue = [NSValue valueWithCGPoint:CGPointMake(-sliderToX, sliderToY)];
-        sliderShowPositionAnim.toValue = [NSValue valueWithCGPoint:
-                                          CGPointMake(sliderToX,sliderToY)];
-        sliderShowPositionAnim.springSpeed = 5.0f;
-        sliderShowPositionAnim.springBounciness = 10.0f;
-        [sliderShowPositionAnim setCompletionBlock:^(POPAnimation *anim, BOOL finished ) {
-            [self showBubbleAnimationFromPosition:bubbleFromPoint toPoint:bubbleToPoint content:content];
-        }];
-        [self.slider pop_addAnimation:sliderShowPositionAnim forKey:@"ScliderShowPositionAnim"];
-    }else{
-        self.slider.frame = CGRectMake(20,
-                                       sliderToY-CGRectGetHeight(self.slider.bounds)/2.0,
-                                       CGRectGetWidth(self.slider.bounds),
-                                       CGRectGetHeight(self.slider.bounds));
+    POPSpringAnimation *sliderShowPositionAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
+    sliderShowPositionAnim.toValue = [NSValue valueWithCGPoint:
+                                      CGPointMake(sliderToX,SliderPositionY+CGRectGetHeight(self.slider.bounds)/2.0)];
+    sliderShowPositionAnim.springSpeed = 5.0f;
+    sliderShowPositionAnim.springBounciness = 10.0f;
+    [sliderShowPositionAnim setCompletionBlock:^(POPAnimation *anim, BOOL finished ) {
         [self showBubbleAnimationFromPosition:bubbleFromPoint toPoint:bubbleToPoint content:content];
-    }
+    }];
+    [self.slider pop_addAnimation:sliderShowPositionAnim forKey:@"ScliderShowPositionAnim"];
+
 
 }
 
@@ -170,6 +128,8 @@
     self.bubbleLabel.text = @"默认30分钟";
     self.bubbleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.bubbleLabel];
+    
+    
 }
 
 - (void)sliderChanged:(UISlider *)slider
@@ -229,7 +189,6 @@
         [labelCircleCenterAnim setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
             if (finished) {
                 [self.circleViewLabel animationWithStrokeend:rate strokeAnim:YES animFinishedBlock:nil];
-//                [self buttonAnimationToClickOpen];
             }
         }];
     }else{//关闭
@@ -252,8 +211,6 @@
             }
         }];
     }
-    
-
     [self.circleViewImage pop_addAnimation:imageCircleScaleAnim forKey:@"ImageCircleScaleAnim"];
     [self.circleViewLabel pop_addAnimation:labelCircleScaleAnim forKey:@"LabelCircleScaleAnim"];
     [self.circleViewImage pop_addAnimation:imageCircleCenterAnim forKey:@"ImageCircleCenterAnim"];
@@ -313,7 +270,7 @@
                 NSString *content = [NSString stringWithFormat:@"默认%.f分钟",defaultRate * 60];
                 [self exchangeAnimationWithRate:defaultRate];
                 [self.circleViewLabel setLabelWithRate:defaultRate];
-                [self showSliderAnimationWithRate:defaultRate anim:YES  content:content];
+                [self showSliderAnimationWithRate:defaultRate content:content];
                 [self buttonAnimationToClickOpen];
             }
                 break;
@@ -410,32 +367,74 @@
 - (void)addImageCircle
 {
     //图片圆圈
-    self.circleViewImage = [[CircleView alloc] initWithFrame:CGRectMake(0, 0, 160, 160)];
+    self.circleViewImage = [[CircleView alloc] initWithFrame:CGRectMake(0, 0, Diameter, Diameter)];
     self.circleViewImage.lineColor = [UIColor customBlueColor];
     self.circleViewImage.cirCleType = CirCleTypeImage;
+    CGFloat rate = [SpreadButtonManager sharedInstance].authTimeLeftSecond/3600.0;
+    if (rate != 0) {
+        //设置imageCircle右上角，并缩小一倍
+        self.circleViewImage.center = PositionRightUp;
+        self.circleViewImage.transform = CGAffineTransformScale(self.circleViewImage.transform, 0.5, 0.5);
+        self.circleViewImage.lineColor = [UIColor customBlueColor];
+        [self.circleViewImage animationWithStrokeend:0.0 strokeAnim:NO animFinishedBlock:nil];
+    }else{
+        //设置circleViewImage居中
+        self.circleViewImage.center = PositionCenter;
+        [self.circleViewImage animationWithStrokeend:1.0 strokeAnim:YES animFinishedBlock:nil];
+    }
     [self.view addSubview:self.circleViewImage];
 }
 
 - (void)addLabelCircle
 {
     //label圆圈
-    self.circleViewLabel = [[CircleView alloc] initWithFrame:CGRectMake(0, 0, 160, 160)];
+    self.circleViewLabel = [[CircleView alloc] initWithFrame:CGRectMake(0, 0, Diameter, Diameter)];
     self.circleViewLabel.lineColor = [UIColor customGreenColor];
     [self.view addSubview:self.circleViewLabel];
+    CGFloat rate = [SpreadButtonManager sharedInstance].authTimeLeftSecond/3600.0;
+    if (rate != 0) {
+        //设置labelCircle居中
+        self.circleViewLabel.center = PositionCenter;
+        [self.circleViewLabel labelCountDownAnimationWithRate:rate finishedBlock:^{
+            [self exchangeAnimationWithRate:0];
+            [self hideSliderAnimationWithRate:0];
+            [self buttonAnimationToClosed];
+        }];;
+        [self.circleViewLabel animationWithStrokeend:rate strokeAnim:NO animFinishedBlock:nil];
+    }else{
+        //设置circleViewLabel左上角，并缩小一倍
+        self.circleViewLabel.center = PositionLeftUp;
+        self.circleViewLabel.transform = CGAffineTransformScale(self.circleViewLabel.transform, 0.5, 0.5);
+    }
+
 }
 
 - (void)addTapButton
 {
     //按钮
     self.tapButton = [FlatButton buttonWithType:UIButtonTypeCustom];
-    [self.tapButton setFrame:CGRectMake(20, CGRectGetHeight(self.view.bounds)/2 + 160, CGRectGetWidth(self.view.bounds) - 20 *2, 44)];
+    [self.tapButton setFrame:CGRectMake(20, CGRectGetHeight(self.view.bounds)/2 + Diameter, CGRectGetWidth(self.view.bounds) - 20 *2, 44)];
     self.tapButton.layer.cornerRadius = 22.0f;
     [self.tapButton addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.tapButton];
+    CGFloat rate = [SpreadButtonManager sharedInstance].authTimeLeftSecond/3600.0;
+    if (rate != 0) {
+        //按钮
+        self.tapButton.tag = 1;
+        [self.tapButton setTitle:@"已开启" forState:UIControlStateNormal];
+        self.tapButton.backgroundColor = self.circleViewLabel.lineColor;
+    }else{
+        //按钮
+        self.tapButton.tag = 0;
+        [self.tapButton setTitle:@"已关闭" forState:UIControlStateNormal];
+        self.tapButton.backgroundColor = self.circleViewImage.lineColor;
+    }
 }
 
 - (void)addSlider
 {
+    CGFloat sliderWidth = CGRectGetWidth(self.view.bounds) - 20 *2;
+    
     //slider
     self.slider = [[UISlider alloc] init];
     self.slider.minimumValue = 0.0f;
@@ -443,21 +442,22 @@
     self.slider.tintColor = [UIColor customGreenColor];
     self.slider.translatesAutoresizingMaskIntoConstraints = NO;
     [self.slider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
-    self.slider.layer.opacity = 0;
-    self.slider.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds) - 20 *2, 44);
     [self.view addSubview:self.slider];
+
+    CGFloat rate = [SpreadButtonManager sharedInstance].authTimeLeftSecond/3600.0;
+    self.slider.value = rate;
+    [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(sliderWidth);
+        make.height.mas_equalTo(44);
+        make.top.mas_equalTo(SliderPositionY);
+        if (rate != 0) {
+            make.left.mas_equalTo(20);
+        }else{
+            make.left.mas_equalTo(-sliderWidth);
+        }
+
+    }];
 }
 
-- (void)configSIAlert
-{
-    [[SIAlertView appearance] setMessageFont:[UIFont fontWithName:@"Avenir-Light" size:15]];
-    [[SIAlertView appearance] setTitleColor:[UIColor customGrayColor]];
-    [[SIAlertView appearance] setMessageColor:[UIColor customGrayColor]];
-    [[SIAlertView appearance] setCornerRadius:12];
-    [[SIAlertView appearance] setShadowRadius:20];
-    [[SIAlertView appearance] setViewBackgroundColor:[UIColor whiteColor]];
-    [[SIAlertView appearance] setButtonColor:[UIColor customBlueColor]];
-    [[SIAlertView appearance] setCancelButtonColor:[UIColor customRedColor]];
-    [[SIAlertView appearance] setTransitionStyle:SIAlertViewTransitionStyleDropDown];
-}
+
 @end

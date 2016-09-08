@@ -3,7 +3,7 @@
 //  FloatWindowDemo
 //
 //  Created by fenglh on 16/7/25.
-//  Copyright © 2016年 xiaoxigame. All rights reserved.
+//  Copyright © 2016年 fenglh. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -34,10 +34,15 @@ typedef NS_ENUM(NSInteger, RedEnvPluginType)
 
 
 + (instancetype)sharedInstance;
+//抖动
 - (void)shake;
+//免撤销
 - (void)openAvoidRevoke:(BOOL)open;
+//抢红包
 - (void)openRedEnvPlugin:(RedEnvPluginType)type;
+//一键录音
 - (void)openOneKeyRecord:(BOOL)open;
+//设置认证时间
 - (void)setAuthValidTime:(double)seconds;
 
 @end
