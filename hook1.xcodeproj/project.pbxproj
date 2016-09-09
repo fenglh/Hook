@@ -25,6 +25,7 @@
 		DB28F67D1D4852810095E891 /* SpreadButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DB28F67B1D4852810095E891 /* SpreadButtonManager.m */; };
 		DB28F68C1D486D6C0095E891 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB28F68B1D486D6C0095E891 /* QuartzCore.framework */; };
 		DB28F68E1D486DA30095E891 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB28F68D1D486DA30095E891 /* CoreGraphics.framework */; };
+		DB29AE2B1D824F2B0076E234 /* BezierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB29AE2A1D824F2B0076E234 /* BezierViewController.m */; };
 		DB3CB9301D6C17F100E587A1 /* FingerPrintAuthViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = DB3CB92E1D6C17F100E587A1 /* FingerPrintAuthViewController.h */; };
 		DB3CB9311D6C17F100E587A1 /* FingerPrintAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB3CB92F1D6C17F100E587A1 /* FingerPrintAuthViewController.m */; };
 		DB3CB9321D6C180600E587A1 /* FingerPrintAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB3CB92F1D6C17F100E587A1 /* FingerPrintAuthViewController.m */; };
@@ -154,6 +155,8 @@
 		DB28F6921D4883640095E891 /* kefu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kefu@2x.png"; sourceTree = "<group>"; };
 		DB28F6931D4883640095E891 /* muyu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "muyu@2x.png"; sourceTree = "<group>"; };
 		DB28F6941D4883640095E891 /* pen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pen@2x.png"; sourceTree = "<group>"; };
+		DB29AE291D824F2B0076E234 /* BezierViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BezierViewController.h; sourceTree = "<group>"; };
+		DB29AE2A1D824F2B0076E234 /* BezierViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BezierViewController.m; sourceTree = "<group>"; };
 		DB3CB92E1D6C17F100E587A1 /* FingerPrintAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerPrintAuthViewController.h; sourceTree = "<group>"; };
 		DB3CB92F1D6C17F100E587A1 /* FingerPrintAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FingerPrintAuthViewController.m; sourceTree = "<group>"; };
 		DB3CB9331D6C1A3700E587A1 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
@@ -405,6 +408,8 @@
 				DB909E151D5DB92200BBD63E /* LaunchScreen.storyboard */,
 				DB909E181D5DB92200BBD63E /* Info.plist */,
 				DB909E071D5DB92200BBD63E /* Supporting Files */,
+				DB29AE291D824F2B0076E234 /* BezierViewController.h */,
+				DB29AE2A1D824F2B0076E234 /* BezierViewController.m */,
 			);
 			path = Hook;
 			sourceTree = "<group>";
@@ -891,6 +896,7 @@
 				DB909E801D62C5FB00BBD63E /* HUTransitionGhostAnimator.m in Sources */,
 				DB909E811D62C5FB00BBD63E /* HUTransitionHorizontalLinesAnimator.m in Sources */,
 				DB909E821D62C5FB00BBD63E /* HUTransitionVerticalLinesAnimator.m in Sources */,
+				DB29AE2B1D824F2B0076E234 /* BezierViewController.m in Sources */,
 				DB909E611D62C50E00BBD63E /* AnimationsListViewController.m in Sources */,
 				DB909E4B1D61BEBA00BBD63E /* FlatButton.m in Sources */,
 				DB909E4C1D61BEBA00BBD63E /* UIColor+CustomColors.m in Sources */,

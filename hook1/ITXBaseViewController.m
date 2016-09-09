@@ -42,6 +42,9 @@
 
 - (void)configureTitleView
 {
+    if (!self.title) {
+        return;
+    }
     UILabel *headlinelabel = [UILabel new];
     headlinelabel.font = [UIFont fontWithName:@"Avenir-Light" size:20];
     headlinelabel.textAlignment = NSTextAlignmentCenter;

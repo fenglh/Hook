@@ -10,7 +10,7 @@
 #import "UIColor+CustomColors.h"
 #import "FlatButton.h"
 #import "AnimationsListViewController.h"
-#import "HUTransitionAnimator.h"
+//#import "HUTransitionAnimator.h"
 #import <pop/POP.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "UIApplication+ITXExtension.h"
@@ -50,6 +50,8 @@
 //一键录音
 - (BOOL)oneKeyRecord
 {
+
+
     return [[[NSUserDefaults standardUserDefaults] objectForKey:@"OneKeyRecord"] boolValue];
 }
 
@@ -125,12 +127,12 @@
 
 
 
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC{
-    HUTransitionAnimator *animator;
-    animator = [[HUTransitionVerticalLinesAnimator alloc] init];
-    animator.presenting = (operation == UINavigationControllerOperationPop)?NO:YES;
-    return animator;
-}
+//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC{
+//    HUTransitionAnimator *animator;
+//    animator = [[HUTransitionVerticalLinesAnimator alloc] init];
+//    animator.presenting = (operation == UINavigationControllerOperationPop)?NO:YES;
+//    return animator;
+//}
 
 - (void)buttonClick:(FlatButton *)button
 {
@@ -138,7 +140,7 @@
     AnimationsListViewController *animationsListViewController = [[AnimationsListViewController alloc] init];
     animationsListViewController.hidesBottomBarWhenPushed = YES;
     UIViewController *topVC = [UIApplication itx_topViewController];
-    topVC.navigationController.delegate = self;
+//    topVC.navigationController.delegate = self;
     NSString *string = [NSString stringWithFormat:@"%@",[topVC class]];
     NSLog(@"按钮点击-》top ViewController:%@",string);
     if ([topVC isKindOfClass:objc_getClass("NewMainFrameViewController")]) {

@@ -188,13 +188,14 @@ CHMethod(0,NSString *,ManualAuthAesReqData,bundleId)
     NSLog(@"hook [ManualAuthAesReqData:-bundleId]");
     return @"com.tencent.xin";
 }
-CHMethod(1,void,NewMainFrameViewController,viewWillAppear,BOOL, animated)
-{
-    CHSuper(1, NewMainFrameViewController,viewWillAppear,animated);
-    [UIApplication itx_topViewController].navigationController.delegate = nil;
-    NSLog(@"重置navigationController.delegate = nil");
-    
-}
+
+//CHMethod(1,void,NewMainFrameViewController,viewWillAppear,BOOL, animated)
+//{
+//    CHSuper(1, NewMainFrameViewController,viewWillAppear,animated);
+//    [UIApplication itx_topViewController].navigationController.delegate = nil;
+//    NSLog(@"重置navigationController.delegate = nil");
+//    
+//}
 CHMethod(0,void,NewMainFrameViewController,viewDidLoad)
 {
     CHSuper(0, NewMainFrameViewController,viewDidLoad);
@@ -379,7 +380,7 @@ __attribute__((constructor)) static void entry()
     
     
     CHLoadLateClass(NewMainFrameViewController);
-    CHClassHook(1, NewMainFrameViewController,viewWillAppear);
+//    CHClassHook(1, NewMainFrameViewController,viewWillAppear);
     CHClassHook(0, NewMainFrameViewController,viewDidLoad);
     CHClassHook(2, NewMainFrameViewController,tableView,didSelectRowAtIndexPath);
     

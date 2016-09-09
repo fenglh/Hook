@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-
+#import "BezierViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -29,9 +29,9 @@
     c1.tabBarItem.badgeValue=@"123";
     UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:c1];
 
-    UIViewController *c2=[[UIViewController alloc]init];
-    c2.view.backgroundColor=[UIColor brownColor];
-    c2.tabBarItem.title=@"联系人";
+    BezierViewController *c2=[[BezierViewController alloc]init];
+//    c2.view.backgroundColor=[UIColor brownColor];
+    c2.tabBarItem.title=@"贝塞尔曲线";
     c2.tabBarItem.image=[UIImage imageNamed:@"drink"];
     UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:c2];
     
